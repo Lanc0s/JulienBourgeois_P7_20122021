@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS utilisateur;
+CREATE TABLE utilisateur (
+
+user_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+nom VARCHAR(100),
+
+prenom VARCHAR(100),
+
+email VARCHAR(255) NOT NULL UNIQUE
+);
+DROP TABLE IF EXISTS publication;
+CREATE TABLE publication (
+post_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+user_id INTEGER NOT NULL,
+FOREIGN KEY (user_id) REFERENCES utilisateur (user_id) ON DELETE CASCADE ON UPDATE CASCADE
+
+);
+DROP TABLE IF EXISTS commentaires;
+CREATE TABLE commentaires (
+	comments_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    post_id INTEGER NOT NULL,
+    FOREIGN KEY(post_id) references publication (post_id) ON UPDATE CASCADE
+);
