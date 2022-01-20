@@ -49,7 +49,7 @@ exports.updateComment = (req, res, next) => {
         console.log(error);
         res.status(400).json({ error });
       }
-      console.log(results);
+      res.status(200).json(results);
     }
   );
 };
@@ -63,7 +63,7 @@ exports.deleteComment = (req, res, next) => {
         console.log(error);
         res.status(400).json({ error });
       }
-      console.log(results);
+      res.status(200).json(results);
     }
   );
 };

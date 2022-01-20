@@ -6,19 +6,18 @@ const { Console } = require("console");
 
 exports.signup = (req, res, next) => {
   const { nom, prenom, email, user_password, isAdmin } = req.body;
-
   bcrypt
     .hash(user_password, 10)
     .then((hash) => {
       db.query(
-        "INSERT INTO `utilisateur` (`nom`,`prenom`,`email`, `user_password`, `isAdmin`) VALUES (?,?,?,?,?)",
+        "INSERT INTO `utilisateur` (`nom`,`prenom`,`email`, `user_password`, `isAdmin`) VALUES (?,?,?,?,0)",
         [nom, prenom, email, hash, isAdmin],
         function (error, results) {
           if (error) {
             console.log(error);
             res.status(400).json({ error });
           }
-          res.status(201).json({ message: "Bien joué ma boi" });
+          res.status(201).json({ message: "User created" });
         }
       );
     })
