@@ -15,9 +15,9 @@ exports.signup = (req, res, next) => {
         function (error, results) {
           if (error) {
             console.log(error);
-            res.status(400).json({ error });
+            return res.status(400).json({ error });
           }
-          res.status(201).json({ message: "User created" });
+          return res.status(201).json({ message: "User created" });
         }
       );
     })
@@ -29,6 +29,7 @@ exports.signup = (req, res, next) => {
 
 exports.signin = (req, res, next) => {
   const { nom, prenom, email, user_password, isAdmin } = req.body;
+  console.log(req.body);
   db.query(
     " SELECT * from `utilisateur` where email = ?",
     [req.body.email],
