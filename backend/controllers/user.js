@@ -38,6 +38,7 @@ exports.signin = (req, res, next) => {
         console.log(error);
       }
       const user = results[0];
+      console.log(user);
       bcrypt.compare(user_password, user.user_password).then((valid) => {
         if (!valid) {
           return res.status(401).json({ error: "Mot de passe incorrect !" });

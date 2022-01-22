@@ -3,6 +3,7 @@ import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
 
 const Home = () => {
+  let userPseudo = localStorage.pseudo;
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -16,6 +17,7 @@ const Home = () => {
   if (localStorage.token) {
     return (
       <div>
+        <div id="pseudo">{userPseudo}</div>
         <h1>Homepage</h1>
         <div id="postButton">
           <Link to="/post">Publier un post</Link>

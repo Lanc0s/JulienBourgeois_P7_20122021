@@ -9,7 +9,6 @@ function App() {
   const logout = () => {
     localStorage.clear();
   };
-
   return (
     <div className="App">
       <BrowserRouter>

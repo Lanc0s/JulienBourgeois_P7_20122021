@@ -5,16 +5,21 @@ import { Navigate, useNavigate } from "react-router-dom";
 const Post = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const userToken = localStorage.token;
+  const userId = localStorage.userId;
 
   const onSubmit = (data) => {
     axios.post("http://localhost:3000/api/post/", data).then(() => {
-      const userToken = localStorage.token;
+      console.log(data);
       navigate("/", { replace: true });
     });
   };
   return (
     <div id="post">
       <form id="post__form" onSubmit={handleSubmit(onSubmit)}>
+        <div hidden id="post__dataHidden">
+          <input type="userId" value={userId} {...register("user_id")} />
+        </div>
         <div id="post__input">
           <label htmlFor="content">Publication</label>
           <input type="content" id="content" {...register("content")} />
@@ -27,6 +32,7 @@ const Post = () => {
             type="file"
             id="file"
             accept="image/png, image/jpg, image/jpeg "
+            {...register("imageURL")}
           />
         </div>
         <div id="post__submit">
