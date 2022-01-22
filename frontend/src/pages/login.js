@@ -9,7 +9,11 @@ const Login = () => {
     axios
       .post("http://localhost:3000/api/auth/signin", data)
       .then((res) => {
+        localStorage.userId = res.data.userId;
+        localStorage.pseudo = res.data.pseudo;
+        localStorage.isAdmin = res.data.isAdmin;
         localStorage.token = res.data.token;
+        console.log(localStorage);
         navigate("/", { replace: true });
       })
       .catch((err) => console.log(err));
