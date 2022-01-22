@@ -5,7 +5,6 @@ import { Navigate, useNavigate } from "react-router-dom";
 const Post = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const userToken = localStorage.token;
   const userId = localStorage.userId;
 
   const onSubmit = (data) => {
@@ -14,6 +13,10 @@ const Post = () => {
       navigate("/", { replace: true });
     });
   };
+  let file = document.getElementById("file");
+  /* if (file.files.length === 0) {
+    file.imageURL = null;
+  } */
   return (
     <div id="post">
       <form id="post__form" onSubmit={handleSubmit(onSubmit)}>
@@ -22,7 +25,12 @@ const Post = () => {
         </div>
         <div id="post__input">
           <label htmlFor="content">Publication</label>
-          <input type="content" id="content" {...register("content")} />
+          <input
+            type="content"
+            id="content"
+            {...register("content")}
+            required
+          />
         </div>
         <div id="post__image">
           <label htmlFor="imageURL">
@@ -31,8 +39,9 @@ const Post = () => {
           <input
             type="file"
             id="file"
+            name="imageURL"
             accept="image/png, image/jpg, image/jpeg "
-            {...register("imageURL")}
+            {...register("imageURL", { required: false })}
           />
         </div>
         <div id="post__submit">
