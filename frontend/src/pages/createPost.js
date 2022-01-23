@@ -13,10 +13,6 @@ const Post = () => {
       navigate("/", { replace: true });
     });
   };
-  let file = document.getElementById("file");
-  /* if (file.files.length === 0) {
-    file.imageURL = null;
-  } */
   return (
     <div id="post">
       <form id="post__form" onSubmit={handleSubmit(onSubmit)}>

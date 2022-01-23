@@ -1,11 +1,15 @@
 const db = require("../database/connect");
+const fs = require("fs");
 
 exports.createPost = (req, res, next) => {
-  const { user_id, content, imageURL } = req.body;
-
+  const { user_id, content } = req.body;
+  let imageUrl = req.file;
+  if (!req.file) {
+    imageUrl = null;
+  }
   db.query(
     "INSERT INTO `publication` VALUES (null, ?,?,?)",
-    [user_id, content, imageURL],
+    [user_id, content, imageUrl],
     function (error, results) {
       if (error) {
         console.log(error);
