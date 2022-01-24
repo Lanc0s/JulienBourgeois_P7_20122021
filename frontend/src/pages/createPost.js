@@ -17,13 +17,13 @@ const Post = () => {
     <div id="post">
       <form id="post__form" onSubmit={handleSubmit(onSubmit)}>
         <div hidden id="post__dataHidden">
-          <input type="userId" value={userId} {...register("user_id")} />
+          <input name="userId" value={userId} {...register("user_id")} />
         </div>
         <div id="post__input">
           <label htmlFor="content">Publication</label>
           <input
             type="content"
-            id="content"
+            className="content"
             {...register("content")}
             required
           />
@@ -34,13 +34,13 @@ const Post = () => {
           </label>
           <input
             type="file"
-            id="file"
+            className="file"
             name="imageURL"
             accept="image/png, image/jpg, image/jpeg "
             {...register("imageURL", { required: false })}
           />
         </div>
-        <div id="post__submit">
+        <div className="submit">
           <button>Valider</button>
         </div>
       </form>

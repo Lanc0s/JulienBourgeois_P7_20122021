@@ -1,12 +1,20 @@
 const db = require("../database/connect");
 const fs = require("fs");
+const download = require("image-downloader");
 
 exports.createPost = (req, res, next) => {
   const { user_id, content } = req.body;
   let imageUrl = req.file;
   if (!req.file) {
     imageUrl = null;
-  }
+  } /* else if (req.file) {
+    function downloadImage(url, filepath) {
+      return download.image({
+        url: imageUrl,
+        dest: "../postImages",
+      });
+    }
+  } */
   db.query(
     "INSERT INTO `publication` VALUES (null, ?,?,?)",
     [user_id, content, imageUrl],
