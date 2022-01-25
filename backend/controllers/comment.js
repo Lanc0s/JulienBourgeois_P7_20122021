@@ -9,9 +9,9 @@ exports.createComment = (req, res, next) => {
     function (error, results) {
       if (error) {
         console.log(error);
-        res.status(400).json({ error });
+        return res.status(400).json({ error });
       }
-      res.status(201).json({ message: "Comment creation succeed" });
+      return res.status(201).json({ message: "Comment creation succeed" });
     }
   );
 };
@@ -20,9 +20,9 @@ exports.getComments = (req, res, next) => {
   db.query("SELECT * FROM `commentaire`", function (error, results) {
     if (error) {
       console.log(error);
-      res.status(400).json({ error });
+      return res.status(400).json({ error });
     }
-    res.status(200).json(results);
+    return res.status(200).json(results);
   });
 };
 
@@ -33,9 +33,9 @@ exports.getOneComment = (req, res, next) => {
     function (error, results) {
       if (error) {
         console.log(error);
-        res.status(400).json({ error });
+        return res.status(400).json({ error });
       }
-      res.status(200).json(results);
+      return res.status(200).json(results);
     }
   );
 };
@@ -47,23 +47,25 @@ exports.updateComment = (req, res, next) => {
     function (error, results) {
       if (error) {
         console.log(error);
-        res.status(400).json({ error });
+        return res.status(400).json({ error });
       }
-      res.status(200).json(results);
+      return res.status(200).json(results);
     }
   );
 };
 
 exports.deleteComment = (req, res, next) => {
+  console.log(req.locals.token);
+  console.log(res.locals.token);
   db.query(
     "DELETE FROM commentaire WHERE comment_id = ?",
     [req.params.id],
     function (error, results) {
       if (error) {
         console.log(error);
-        res.status(400).json({ error });
+        return res.status(400).json({ error });
       }
-      res.status(200).json(results);
+      return res.status(200).json(results);
     }
   );
 };

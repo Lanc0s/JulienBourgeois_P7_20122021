@@ -18,9 +18,9 @@ exports.createPost = (req, res, next) => {
     function (error, results) {
       if (error) {
         console.log(error);
-        res.status(400).json({ error });
+        return res.status(400).json({ error });
       }
-      res.status(201).json({ message: "Création post réussi" });
+      return res.status(201).json({ message: "Création post réussi" });
     }
   );
 };
@@ -31,9 +31,9 @@ exports.getPosts = (req, res, next) => {
     function (error, results) {
       if (error) {
         console.log(error);
-        res.status(400).json({ error });
+        return res.status(400).json({ error });
       }
-      res.status(200).json(results);
+      return res.status(200).json(results);
     }
   );
 };
@@ -45,9 +45,9 @@ exports.getOnePost = (req, res, next) => {
     function (error, results) {
       if (error) {
         console.log(error);
-        res.status(400).json({ error });
+        return res.status(400).json({ error });
       }
-      res.status(200).json(results);
+      return res.status(200).json(results);
     }
   );
 };
@@ -57,9 +57,9 @@ exports.updatePost = (req, res, next) => {
   db.query(query, [req.body, req.params.id], function (error, results) {
     if (error) {
       console.log(error);
-      res.status(400).json({ error });
+      return res.status(400).json({ error });
     }
-    res.status(200).json(results);
+    return res.status(200).json(results);
   });
 
   /* 
@@ -79,9 +79,10 @@ exports.deletePost = (req, res, next) => {
     function (error, results) {
       if (error) {
         console.log(error);
-        res.status(400).json({ error });
+        return res.status(400).json({ error });
       }
       console.log(results);
+      return res.status(200).json({ message: "Post supprimé" });
     }
   );
 };

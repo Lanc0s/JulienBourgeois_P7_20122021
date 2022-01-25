@@ -5,23 +5,22 @@ import { Navigate, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 
 const Home = () => {
-  let userPseudo = localStorage.pseudo;
   const [posts, setPosts] = useState([]);
-
+  let pseudo = localStorage.pseudo;
   useEffect(() => {
     axios("http://localhost:3000/api/post")
       .then((res) => {
         setPosts(res.data);
       })
       .catch((error) => console.log(error));
-  });
+  }, [setPosts]);
 
   if (localStorage.token) {
     return (
       <div className="wrapper">
         <div id="pseudo">
           <Logo id="logo" />
-          <h4> . {userPseudo}</h4>
+          <h4>{pseudo}</h4>
         </div>
         <div className="homepage">
           <div className="banner">
@@ -31,7 +30,7 @@ const Home = () => {
             <Link to="/post">Publier un post</Link>
           </div>
           <section className="homepage__content">
-            {posts
+            {posts && posts.length
               ? posts.map((post) => {
                   return (
                     <div className="homepage__content__post">

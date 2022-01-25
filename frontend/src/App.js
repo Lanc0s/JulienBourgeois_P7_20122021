@@ -4,8 +4,12 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Post from "./pages/createPost";
+import React from "react";
+
+import axios from "axios";
 
 function App() {
+  axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
   const logout = () => {
     localStorage.clear();
   };

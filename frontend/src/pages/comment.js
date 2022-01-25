@@ -32,7 +32,7 @@ const Com = () => {
         </div>
         <div id="comment__image">
           <label htmlFor="imageUrl">
-            Ajouter une image type PNG, JPG, JPEG
+            Ajouter une image type PNG, JPG, JPEG, GIF
           </label>
           <input
             type="file"

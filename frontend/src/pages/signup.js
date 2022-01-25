@@ -53,6 +53,9 @@ const Signup = () => {
           />
         </div>
         <button>Valider</button>
+        <button onSubmit={handleSubmit(navigate("/", { replace: true }))}>
+          Annuler
+        </button>
       </form>
     );
   }

@@ -9,9 +9,9 @@ const Post = () => {
 
   const onSubmit = (data) => {
     const formData = new FormData();
-
-    formData.append(data.content);
-    formData.append(data.image);
+    formData.append("user_id", data.user_id);
+    formData.append("content", data.content);
+    formData.append("image", data.image[0]);
 
     axios.post("http://localhost:3000/api/post/", formData).then(() => {
       console.log(data);

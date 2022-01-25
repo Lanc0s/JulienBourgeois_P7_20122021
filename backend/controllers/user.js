@@ -23,7 +23,7 @@ exports.signup = (req, res, next) => {
     })
     .catch((error) => {
       console.log(error);
-      res.status(500).json({ error });
+      return res.status(500).json({ error });
     });
 };
 
@@ -38,18 +38,23 @@ exports.signin = (req, res, next) => {
         console.log(error);
       }
       const user = results[0];
-      console.log(user);
       bcrypt.compare(user_password, user.user_password).then((valid) => {
         if (!valid) {
           return res.status(401).json({ error: "Mot de passe incorrect !" });
         }
-        res.status(200).json({
+        return res.status(200).json({
           userId: user.user_id,
           pseudo: user.prenom + " " + user.nom,
           isAdmin: user.isAdmin,
-          token: jwt.sign({ userId: user.user_id }, "RANDOM_TOKEN_SECRET", {
-            expiresIn: "24h",
-          }),
+          token: jwt.sign(
+            {
+              userId: user.user_id,
+            },
+            "RANDOM_TOKEN_SECRET",
+            {
+              expiresIn: "24h",
+            }
+          ),
         });
       });
     }
