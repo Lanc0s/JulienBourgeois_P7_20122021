@@ -1,20 +1,17 @@
 const db = require("../database/connect");
 const fs = require("fs");
-const download = require("image-downloader");
 
 exports.createPost = (req, res, next) => {
   const { user_id, content } = req.body;
   let imageUrl = req.file;
   if (!req.file) {
     imageUrl = null;
-  } /* else if (req.file) {
-    function downloadImage(url, filepath) {
-      return download.image({
-        url: imageUrl,
-        dest: "../postImages",
-      });
-    }
-  } */
+  } else if (req.file) {
+    imageUrl = `${req.protocol}://${req.get("host")}/postImages/${
+      req.file.filename
+    }`;
+  }
+
   db.query(
     "INSERT INTO `publication` VALUES (null, ?,?,?)",
     [user_id, content, imageUrl],
@@ -29,13 +26,16 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.getPosts = (req, res, next) => {
-  db.query("SELECT * FROM publication", function (error, results) {
-    if (error) {
-      console.log(error);
-      res.status(400).json({ error });
+  db.query(
+    "SELECT post_id, utilisateur.user_id, content, imageUrl, concat( Prenom, ' ',Nom) as 'pseudo' FROM publication JOIN utilisateur ON publication.user_id=utilisateur.user_id ORDER BY post_id;",
+    function (error, results) {
+      if (error) {
+        console.log(error);
+        res.status(400).json({ error });
+      }
+      res.status(200).json(results);
     }
-    res.status(200).json(results);
-  });
+  );
 };
 
 exports.getOnePost = (req, res, next) => {
@@ -73,8 +73,9 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   db.query(
-    "DELETE FROM publication WHERE post_id=?",
+    "DELETE FROM publication WHERE post_id=? and user_id=?",
     [req.params.id],
+    [localStorage.userId],
     function (error, results) {
       if (error) {
         console.log(error);
