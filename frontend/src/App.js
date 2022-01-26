@@ -12,6 +12,7 @@ function App() {
   axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
   const logout = () => {
     localStorage.clear();
+    window.location.href = "/login";
   };
   return (
     <div className="App">

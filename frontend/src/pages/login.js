@@ -11,7 +11,6 @@ const Login = () => {
       .then((res) => {
         localStorage.userId = res.data.userId;
         localStorage.pseudo = res.data.pseudo;
-        localStorage.isAdmin = res.data.isAdmin;
         localStorage.token = res.data.token;
         console.log(localStorage);
         navigate("/", { replace: true });

@@ -1,4 +1,4 @@
-import { useForm, userForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -36,12 +36,12 @@ const Post = () => {
           </div>
           <div id="post__image">
             <label htmlFor="imageURL">
-              Ajouter une image type PNG, JPG, JPEG
+              Ajouter une image type PNG, JPG, JPEG, GIF
             </label>
             <input
               type="file"
               className="file"
-              accept="image/png, image/jpg, image/jpeg "
+              accept="image/png, image/jpg, image/jpeg image/gif "
               {...register("image", { required: false })}
             />
           </div>

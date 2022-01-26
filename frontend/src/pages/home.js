@@ -5,8 +5,18 @@ import { Navigate, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 
 const Home = () => {
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append("user_id", data.userId);
+    formData.append("post_id", data.post_id);
+    formData.append("isAdmin", data.isAdmin);
+  };
   const [posts, setPosts] = useState([]);
+  const handleDelete = (id) => {
+    axios.delete("http://localhost:3000/api/post/:id" + id);
+  };
   let pseudo = localStorage.pseudo;
+  const userId = localStorage.userId;
   useEffect(() => {
     axios("http://localhost:3000/api/post")
       .then((res) => {
@@ -36,12 +46,15 @@ const Home = () => {
                     <div className="homepage__content__post">
                       <div className="homepage__content__post__header">
                         <h3>{post.pseudo}</h3>
-                        <a href="http://localhost:3000/api/post/delete">
+                        {/* <div onClick={onSubmit(handleDelete(post.post_id))}>
                           <BsFillTrashFill className="delete_icon" />
-                        </a>
+                        </div> */}
                       </div>
                       <div className="homepage__content__post__content">
                         <p>{post.content}</p>
+                        {post.imageUrl && (
+                          <img src={post.imageUrl} alt="contentimage" />
+                        )}
                       </div>
                     </div>
                   );

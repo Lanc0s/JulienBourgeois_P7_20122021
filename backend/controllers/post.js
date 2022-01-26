@@ -74,8 +74,7 @@ exports.updatePost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
   db.query(
     "DELETE FROM publication WHERE post_id=? and user_id=?",
-    [req.params.id],
-    [localStorage.userId],
+    [req.params.id, req.body.userId],
     function (error, results) {
       if (error) {
         console.log(error);
