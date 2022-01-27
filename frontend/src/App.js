@@ -4,6 +4,7 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Post from "./pages/createPost";
+import Comment from "./pages/createComment";
 import React from "react";
 
 import axios from "axios";
@@ -22,6 +23,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/post" element={<Post />} />
+          <Route path="/comment" element={<Comment />} />
         </Routes>
       </BrowserRouter>
       <button onClick={logout}>Logout</button>

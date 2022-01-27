@@ -1,29 +1,41 @@
 const db = require("../database/connect");
 
 exports.createComment = (req, res, next) => {
-  const { user_id, post_id, content, imageURL } = req.body;
-
+  const { user_id, post_id, content } = req.body;
+  let imageUrl = req.file;
+  if (!req.file) {
+    imageUrl = null;
+  } else if (req.file) {
+    imageUrl = `${req.protocol}://${req.get("host")}/postImages/${
+      req.file.filename
+    }`;
+  }
   db.query(
     "INSERT INTO `commentaire` VALUES (null, ?,?,?,?)",
-    [user_id, post_id, content, imageURL],
+    [user_id, post_id, content, imageUrl],
     function (error, results) {
       if (error) {
         console.log(error);
         return res.status(400).json({ error });
       }
-      return res.status(201).json({ message: "Comment creation succeed" });
+      return res.status(201).json({ message: "Création commentaire réussie" });
     }
   );
 };
 
 exports.getComments = (req, res, next) => {
-  db.query("SELECT * FROM `commentaire`", function (error, results) {
-    if (error) {
-      console.log(error);
-      return res.status(400).json({ error });
+  const { user_id, post_id, content, imageURL } = req.body;
+  db.query(
+    "SELECT * FROM `commentaire` WHERE post_id=?",
+    [post_id],
+    function (error, results) {
+      if (error) {
+        console.log(error);
+        return res.status(400).json({ error });
+      }
+      return res.status(200).json(results);
     }
-    return res.status(200).json(results);
-  });
+  );
 };
 
 exports.getOneComment = (req, res, next) => {

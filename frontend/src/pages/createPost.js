@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 import { Link, useNavigate } from "react-router-dom";
 
 const Post = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  let pseudo = localStorage.pseudo;
   const userId = localStorage.userId;
 
   const onSubmit = (data) => {
@@ -20,6 +22,10 @@ const Post = () => {
   };
   return (
     <div className="pageWrap">
+      <div id="pseudo">
+        <Logo id="logo" />
+        <h4>{pseudo}</h4>
+      </div>
       <div id="post">
         <form id="post__form" onSubmit={handleSubmit(onSubmit)}>
           <div hidden id="post__dataHidden">
@@ -35,13 +41,13 @@ const Post = () => {
             />
           </div>
           <div id="post__image">
-            <label htmlFor="imageURL">
+            <label htmlFor="imageUrl">
               Ajouter une image type PNG, JPG, JPEG, GIF
             </label>
             <input
               type="file"
               className="file"
-              accept="image/png, image/jpg, image/jpeg image/gif "
+              accept="image/png, image/jpg, image/jpeg, image/gif "
               {...register("image", { required: false })}
             />
           </div>

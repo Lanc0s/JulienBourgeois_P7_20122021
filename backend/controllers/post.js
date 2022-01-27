@@ -1,5 +1,6 @@
 const db = require("../database/connect");
 const fs = require("fs");
+const express = require("express");
 
 exports.createPost = (req, res, next) => {
   const { user_id, content } = req.body;
@@ -20,14 +21,16 @@ exports.createPost = (req, res, next) => {
         console.log(error);
         return res.status(400).json({ error });
       }
-      return res.status(201).json({ message: "Création post réussi" });
+      return res.status(201).json({ message: "Création post réussie" });
     }
   );
 };
 
 exports.getPosts = (req, res, next) => {
   db.query(
-    "SELECT post_id, utilisateur.user_id, content, imageUrl, concat( Prenom, ' ',Nom) as 'pseudo' FROM publication JOIN utilisateur ON publication.user_id=utilisateur.user_id ORDER BY post_id;",
+    "SELECT post_id, utilisateur.user_id, content, imageUrl," +
+      "concat( Prenom, ' ',Nom) as 'pseudo' FROM publication " +
+      "JOIN utilisateur ON publication.user_id=utilisateur.user_id ORDER BY post_id;",
     function (error, results) {
       if (error) {
         console.log(error);
@@ -74,7 +77,7 @@ exports.updatePost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
   db.query(
     "DELETE FROM publication WHERE post_id=? and user_id=?",
-    [req.params.id, req.body.userId],
+    [req.params.id, req.body],
     function (error, results) {
       if (error) {
         console.log(error);
