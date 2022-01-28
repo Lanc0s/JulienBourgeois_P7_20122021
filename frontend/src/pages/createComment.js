@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Comment = () => {
   const { register, handleSubmit } = useForm();
@@ -12,6 +12,7 @@ const Comment = () => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("user_id", data.user_id);
+    formData.append("post_id", data.post_id);
     formData.append("content", data.content);
     formData.append("image", data.image[0]);
     axios.post("http://localhost:3000/api/comment/", formData).then(() => {
@@ -19,6 +20,11 @@ const Comment = () => {
       navigate("/", { replace: true });
     });
   };
+
+  const location = useLocation();
+  const { from } = location.state;
+  console.log(from);
+
   return (
     <div id="comment">
       <div id="pseudo">

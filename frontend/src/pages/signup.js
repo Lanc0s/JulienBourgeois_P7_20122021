@@ -11,13 +11,16 @@ const Signup = () => {
         .post("http://localhost:3000/api/auth/signin", data)
         .then((res) => {
           localStorage.token = res.data.token;
-          navigate("/", { replace: true });
+          localStorage.userId = res.data.userId;
+          localStorage.pseudo = res.data.pseudo;
+
+          navigate("/login", { replace: true });
         })
         .catch((err) => console.log(err));
     });
   };
   if (localStorage.token) {
-    return <Navigate to="/" replace={true} />;
+    return <Navigate to="/login" replace={true} />;
   } else {
     return (
       <form id="signup__wrap" onSubmit={handleSubmit(onSubmit)}>
@@ -53,7 +56,7 @@ const Signup = () => {
           />
         </div>
         <button>Valider</button>
-        <button onSubmit={handleSubmit(navigate("/", { replace: true }))}>
+        <button onSubmit={handleSubmit(navigate("/login", { replace: true }))}>
           Annuler
         </button>
       </form>

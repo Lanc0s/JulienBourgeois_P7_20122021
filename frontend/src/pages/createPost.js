@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Post = () => {
   const { register, handleSubmit } = useForm();
@@ -9,9 +9,15 @@ const Post = () => {
   let pseudo = localStorage.pseudo;
   const userId = localStorage.userId;
 
+  const location = useLocation();
+  const { from } = location.state;
+  console.log(from);
+
+  console.log(userId);
   const onSubmit = (data) => {
+    console.log(data);
     const formData = new FormData();
-    formData.append("user_id", data.user_id);
+    formData.append("user_id", data.userId);
     formData.append("content", data.content);
     formData.append("image", data.image[0]);
 
@@ -29,7 +35,7 @@ const Post = () => {
       <div id="post">
         <form id="post__form" onSubmit={handleSubmit(onSubmit)}>
           <div hidden id="post__dataHidden">
-            <input name="userId" value={userId} {...register("user_id")} />
+            <input value={userId} {...register("user_id")} />
           </div>
           <div id="post__input">
             <label htmlFor="content">Publication</label>

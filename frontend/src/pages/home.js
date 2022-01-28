@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import axios from "axios";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useLocation } from "react-router-dom";
 import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 
 const Home = () => {
@@ -11,29 +11,33 @@ const Home = () => {
     formData.append("post_id", data.post_id);
     formData.append("isAdmin", data.isAdmin);
   }; */
-  const [posts, setPosts] = useState([]);
-  const [comments, setComments] = useState([]);
   /* const handleDelete = (id) => {
     axios.delete("http://localhost:3000/api/post/:id" + id);
   }; */
+  const [posts, setPosts] = useState([]);
+  const [comments, setComments] = useState([]);
+
   let pseudo = localStorage.pseudo;
   const userId = localStorage.userId;
 
-  useEffect(() => {
-    axios("http://localhost:3000/api/post")
-      .then((res) => {
-        setPosts(res.data);
-      })
-      .catch((error) => console.log(error));
-  }, [setPosts]);
-
-  useEffect(() => {
-    axios("http://localhost:3000/api/comment")
-      .then((res) => {
-        setComments(res.data);
-      })
-      .catch((error) => console.log(error));
-  }, [setComments]);
+  useEffect(
+    () => {
+      axios("http://localhost:3000/api/post")
+        .then((res) => {
+          setPosts(res.data);
+        })
+        .then(
+          axios("http://localhost:3000/api/comment")
+            .then((res) => {
+              setComments(res.data);
+            })
+            .catch((error) => console.log(error))
+        )
+        .catch((error) => console.log(error));
+    },
+    [setPosts],
+    [setComments]
+  );
 
   if (localStorage.token) {
     return (
@@ -47,7 +51,7 @@ const Home = () => {
             <h1>Fil d'actualités</h1>
           </div>
           <div id="postButton">
-            <Link className="lien" to="/post">
+            <Link className="lien" to="/post" state={{ from: "home" }}>
               Publier un post
             </Link>
           </div>
@@ -73,7 +77,11 @@ const Home = () => {
                             />
                           )}
                         </div>
-                        <Link className="lien" to="/comment">
+                        <Link
+                          className="lien"
+                          to="/comment"
+                          state={{ from: "home" }}
+                        >
                           Poster un commentaire
                         </Link>
                       </div>
