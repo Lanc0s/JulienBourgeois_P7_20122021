@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import axios from "axios";
-import { Navigate, Link, useLocation } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 
 const Home = () => {
@@ -51,7 +51,7 @@ const Home = () => {
             <h1>Fil d'actualités</h1>
           </div>
           <div id="postButton">
-            <Link className="lien" to="/post" state={{ from: "home" }}>
+            <Link className="lien" to="/post">
               Publier un post
             </Link>
           </div>
@@ -80,13 +80,14 @@ const Home = () => {
                         <Link
                           className="lien"
                           to="/comment"
-                          state={{ from: "home" }}
+                          state={{ postId: post.post_id }}
                         >
                           Poster un commentaire
                         </Link>
                       </div>
                       {comments && comments.length ? (
                         comments.map((comment) => {
+                          console.log("Je suis là");
                           return (
                             <div className="homepage__content__comment">
                               <div className="homepage__content__comment__header">

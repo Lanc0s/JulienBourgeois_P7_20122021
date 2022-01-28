@@ -8,13 +8,13 @@ nom VARCHAR(100),
 prenom VARCHAR(100),
 email VARCHAR(255) NOT NULL UNIQUE,
 user_password VARCHAR(500) NOT NULL, 
-isAdmin TINYINT NOT NULL
+isAdmin TINYINT(0) NOT NULL 
 );
 
 CREATE TABLE publication (
 post_id INTEGER PRIMARY KEY NOT NULL auto_increment,
 user_id INTEGER NOT NULL,
-content VARCHAR(5000),
+content VARCHAR(500),
 imageURL VARCHAR(250),
 FOREIGN KEY (user_id) REFERENCES utilisateur (user_id) ON DELETE CASCADE ON UPDATE CASCADE
 

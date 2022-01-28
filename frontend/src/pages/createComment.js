@@ -11,7 +11,7 @@ const Comment = () => {
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append("user_id", data.user_id);
+    formData.append("user_id", parseInt(data.user_id));
     formData.append("post_id", data.post_id);
     formData.append("content", data.content);
     formData.append("image", data.image[0]);
@@ -22,8 +22,7 @@ const Comment = () => {
   };
 
   const location = useLocation();
-  const { from } = location.state;
-  console.log(from);
+  const { postId } = location.state;
 
   return (
     <div id="comment">
@@ -33,8 +32,8 @@ const Comment = () => {
       </div>
       <form id="comment__form" onSubmit={handleSubmit(onSubmit)}>
         <div hidden id="comment__dataHidden">
-          <input name="userId" value={userId} {...register("user_id")} />
-          {/* comment j'attache le comment au post_id? */}
+          <input value={userId} {...register("user_id")} />
+          <input value={postId} {...register("post_id")} />
         </div>
         <div id="comment__input">
           <label htmlFor="content">Commentaire</label>
