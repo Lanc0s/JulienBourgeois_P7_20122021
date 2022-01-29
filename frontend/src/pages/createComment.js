@@ -23,7 +23,7 @@ const Comment = () => {
 
   const location = useLocation();
   const { postId } = location.state;
-
+  console.log("postid = ", postId);
   return (
     <div id="comment">
       <div id="pseudo">

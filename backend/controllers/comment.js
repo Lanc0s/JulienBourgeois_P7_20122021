@@ -24,10 +24,10 @@ exports.createComment = (req, res, next) => {
 };
 
 exports.getComments = (req, res, next) => {
-  const { user_id, post_id, content, imageURL } = req.body;
+  const { user_id, post_id, content, imageUrl } = req.body;
   db.query(
-    "SELECT * FROM `commentaire` WHERE post_id=?",
-    [post_id],
+    "SELECT user_id, post_id, content, imageUrl FROM `commentaire` WHERE post_id=3",
+    /* [post_id], */
     function (error, results) {
       if (error) {
         console.log(error);

@@ -16,10 +16,6 @@ const Home = () => {
   }; */
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
-
-  let pseudo = localStorage.pseudo;
-  const userId = localStorage.userId;
-
   useEffect(
     () => {
       axios("http://localhost:3000/api/post")
@@ -38,6 +34,15 @@ const Home = () => {
     [setPosts],
     [setComments]
   );
+  console.log("posts: ", posts);
+  /* 
+  useEffect(() => {
+    
+  }, ); */
+
+  console.log("comments: ", comments);
+  let pseudo = localStorage.pseudo;
+  const userId = localStorage.userId;
 
   if (localStorage.token) {
     return (
