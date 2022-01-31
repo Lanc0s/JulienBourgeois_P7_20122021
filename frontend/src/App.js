@@ -10,6 +10,7 @@ import React from "react";
 import axios from "axios";
 
 function App() {
+  console.log(localStorage.token);
   axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
   const logout = () => {
     localStorage.clear();

@@ -28,9 +28,11 @@ exports.createPost = (req, res, next) => {
 
 exports.getPosts = (req, res, next) => {
   db.query(
-    "SELECT post_id, utilisateur.user_id, content, imageUrl," +
-      "concat( Prenom, ' ',Nom) as 'pseudo' FROM publication " +
-      "JOIN utilisateur ON publication.user_id=utilisateur.user_id ORDER BY post_id;",
+    "SELECT p.post_id, up.user_id,uc.user_id,p.content AS postContent,imageUrl," +
+      "concat( up.Prenom, ' ',up.Nom) as 'pseudoPost', comment_id, c.content AS commentContent, concat( uc.Prenom, ' ',uc.Nom) as 'pseudoCom'" +
+      "FROM publication p JOIN utilisateur AS up ON p.user_id = up.user_id " +
+      "LEFT join commentaire as c ON p.post_id = c.post_id " +
+      "LEFT JOIN utilisateur AS uc ON uc.user_id=c.user_id ;",
     function (error, results) {
       if (error) {
         console.log(error);
@@ -44,7 +46,7 @@ exports.getPosts = (req, res, next) => {
 exports.getOnePost = (req, res, next) => {
   db.query(
     "SELECT * FROM publication WHERE post_id = ?",
-    [req.params.id],
+    [req.params.post_id],
     function (error, results) {
       if (error) {
         console.log(error);
@@ -57,7 +59,7 @@ exports.getOnePost = (req, res, next) => {
 
 exports.updatePost = (req, res, next) => {
   const query = "UPDATE `publication` SET ? WHERE post_id=?";
-  db.query(query, [req.body, req.params.id], function (error, results) {
+  db.query(query, [req.body, req.params.post_id], function (error, results) {
     if (error) {
       console.log(error);
       return res.status(400).json({ error });
@@ -75,11 +77,20 @@ exports.updatePost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
+  let query;
+  if ((res.locals.isAdmin = 1)) {
+    query = "DELETE FROM publication WHERE post_id=?";
+  } else if ((res.locals.isAdmin = 0)) {
+    query = "DELETE FROM publication WHERE post_id=9 AND user_id=2";
+  }
   db.query(
-    "DELETE FROM publication WHERE post_id=? and user_id=?",
-    [req.params.id, req.body],
+    query,
+    [parseInt(req.params.post_id), res.locals.userId],
+    console.log("isAdmin : ", res.locals.isAdmin),
+    console.log(query),
+    console.log(res.locals.userId),
     function (error, results) {
-      if (error) {
+      if (error || !results.affectedRows) {
         console.log(error);
         return res.status(400).json({ error });
       }

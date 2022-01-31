@@ -44,6 +44,7 @@ const Comment = () => {
             required
           />
         </div>
+        {/* 
         <div id="comment__image">
           <label htmlFor="imageUrl">
             Ajouter une image type PNG, JPG, JPEG, GIF
@@ -54,7 +55,7 @@ const Comment = () => {
             accept="image/png, image/jpg, image/jpeg, image/gif"
             {...register("image", { required: false })}
           />
-        </div>
+        </div> */}
         <div className="submit">
           <button>Valider</button>
         </div>

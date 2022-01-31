@@ -15,7 +15,7 @@ CREATE TABLE publication (
 post_id INTEGER PRIMARY KEY NOT NULL auto_increment,
 user_id INTEGER NOT NULL,
 content VARCHAR(500),
-imageURL VARCHAR(250),
+imageUrl VARCHAR(250),
 FOREIGN KEY (user_id) REFERENCES utilisateur (user_id) ON DELETE CASCADE ON UPDATE CASCADE
 
 );
@@ -25,7 +25,6 @@ CREATE TABLE commentaire (
     user_id INTEGER NOT NULL,
     post_id INTEGER NOT NULL,
 	content VARCHAR(5000),
-	imageURL VARCHAR(250),
     FOREIGN KEY(post_id) references publication (post_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (user_id) REFERENCES utilisateur (user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );

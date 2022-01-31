@@ -2,7 +2,6 @@ const db = require("../database/connect");
 
 exports.createComment = (req, res, next) => {
   const { user_id, post_id, content } = req.body;
-  let imageUrl = req.file;
   if (!req.file) {
     imageUrl = null;
   } else if (req.file) {
@@ -11,8 +10,8 @@ exports.createComment = (req, res, next) => {
     }`;
   }
   db.query(
-    "INSERT INTO `commentaire` VALUES (null, ?,?,?,?)",
-    [user_id, post_id, content, imageUrl],
+    "INSERT INTO `commentaire` VALUES (null, ?,?,?)",
+    [user_id, post_id, content],
     function (error, results) {
       if (error) {
         console.log(error);
@@ -22,12 +21,12 @@ exports.createComment = (req, res, next) => {
     }
   );
 };
-
+/* 
 exports.getComments = (req, res, next) => {
-  const { user_id, post_id, content, imageUrl } = req.body;
+  const { post_id } = req.params;
   db.query(
     "SELECT user_id, post_id, content, imageUrl FROM `commentaire` WHERE post_id=3",
-    /* [post_id], */
+    /* [post_id],
     function (error, results) {
       if (error) {
         console.log(error);
@@ -36,7 +35,7 @@ exports.getComments = (req, res, next) => {
       return res.status(200).json(results);
     }
   );
-};
+}; */
 
 exports.getOneComment = (req, res, next) => {
   db.query(

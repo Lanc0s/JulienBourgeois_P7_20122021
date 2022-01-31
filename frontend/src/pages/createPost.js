@@ -13,9 +13,7 @@ const Post = () => {
   const { from } = location.state;
   console.log(from); */
 
-  console.log(userId);
   const onSubmit = (data) => {
-    console.log(data);
     const formData = new FormData();
     formData.append("user_id", parseInt(data.user_id));
     formData.append("content", data.content);

@@ -7,6 +7,8 @@ module.exports = (req, res, next) => {
     const userId = decodedToken.userId;
     const isAdmin = decodedToken.isAdmin;
     const pseudo = decodedToken.pseudo;
+    res.locals.userId = userId;
+    res.locals.isAdmin = isAdmin;
     /* 
     req.auth = { userId: userId, isAdmin: isAdmin, pseudo: pseudo }; */
     if (req.body.userId && req.body.userId !== userId) {

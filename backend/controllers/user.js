@@ -5,13 +5,13 @@ const bcrypt = require("bcrypt");
 const { Console } = require("console");
 
 exports.signup = (req, res, next) => {
-  const { nom, prenom, email, user_password, isAdmin } = req.body;
+  const { nom, prenom, email, user_password } = req.body;
   bcrypt
     .hash(user_password, 10)
     .then((hash) => {
       db.query(
         "INSERT INTO `utilisateur` (`nom`,`prenom`,`email`, `user_password`, `isAdmin`) VALUES (?,?,?,?,0)",
-        [nom, prenom, email, hash, isAdmin],
+        [nom, prenom, email, hash],
         function (error, results) {
           if (error) {
             console.log(error);

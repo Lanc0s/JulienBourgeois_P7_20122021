@@ -5,42 +5,28 @@ import { Navigate, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 
 const Home = () => {
-  /* const onSubmit = (data) => {
-    const formData = new FormData();
-    formData.append("user_id", data.userId);
-    formData.append("post_id", data.post_id);
-    formData.append("isAdmin", data.isAdmin);
-  }; */
-  /* const handleDelete = (id) => {
-    axios.delete("http://localhost:3000/api/post/:id" + id);
-  }; */
+  const handleDelete = (id) => {
+    axios.delete("http://localhost:3000/api/post/" + id).then(() => {
+      window.location.reload();
+    });
+  };
   const [posts, setPosts] = useState([]);
-  const [comments, setComments] = useState([]);
-  useEffect(
-    () => {
-      axios("http://localhost:3000/api/post")
-        .then((res) => {
-          setPosts(res.data);
-        })
+  useEffect(() => {
+    axios("http://localhost:3000/api/post")
+      .then((res) => {
+        setPosts(res.data);
+      })
+      /*
         .then(
-          axios("http://localhost:3000/api/comment")
+          axios("http://localhost:3000/api/comment/" + postId)
             .then((res) => {
               setComments(res.data);
             })
             .catch((error) => console.log(error))
-        )
-        .catch((error) => console.log(error));
-    },
-    [setPosts],
-    [setComments]
-  );
-  console.log("posts: ", posts);
-  /* 
-  useEffect(() => {
-    
-  }, ); */
+        ) */
+      .catch((error) => console.log(error));
+  }, [setPosts]);
 
-  console.log("comments: ", comments);
   let pseudo = localStorage.pseudo;
   const userId = localStorage.userId;
 
@@ -63,17 +49,19 @@ const Home = () => {
           <section className="homepage__content">
             {posts && posts.length
               ? posts.map((post) => {
+                  console.log("post: ", post);
+                  console.log("postImage: ", post.imageUrl);
                   return (
                     <article className="homepage__content__wrap">
                       <div className="homepage__content__post">
                         <div className="homepage__content__post__header">
-                          <h3>{post.pseudo}</h3>
-                          {/* <div onClick={onSubmit(handleDelete(post.post_id))}>
-                          <BsFillTrashFill className="delete_icon" />
-                        </div> */}
+                          <h3>{post.pseudoPost}</h3>
+                          <div onClick={() => handleDelete(post.post_id)}>
+                            <BsFillTrashFill className="delete_icon" />
+                          </div>
                         </div>
                         <div className="homepage__content__post__content">
-                          <p>{post.content}</p>
+                          <p>{post.postContent}</p>
                           {post.imageUrl && (
                             <img
                               src={post.imageUrl}
@@ -90,25 +78,13 @@ const Home = () => {
                           Poster un commentaire
                         </Link>
                       </div>
-                      {comments && comments.length ? (
-                        comments.map((comment) => {
-                          console.log("Je suis là");
-                          return (
-                            <div className="homepage__content__comment">
-                              <div className="homepage__content__comment__header">
-                                <p>{comment.pseudo} </p>
-                              </div>
-                              <div className="homepage__content__comment__content">
-                                <p>{comment.content} </p>
-                              </div>
-                            </div>
-                          );
-                        })
-                      ) : (
-                        <div className="homepage__content__comment">
-                          <p>Soyez le premier à laisser un commentaire! </p>
+
+                      <div className="homepage__content__comment">
+                        <div className="homepage__content__comment__content">
+                          <h3>{post.pseudoCom} </h3>
+                          <p>{post.commentContent} </p>
                         </div>
-                      )}
+                      </div>
                     </article>
                   );
                 })

@@ -9,10 +9,11 @@ const Login = () => {
     axios
       .post("http://localhost:3000/api/auth/signin", data)
       .then((res) => {
+        axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
         localStorage.userId = res.data.userId;
         localStorage.pseudo = res.data.pseudo;
         localStorage.token = res.data.token;
-        console.log(localStorage);
+        console.log("localStorage :", localStorage);
         navigate("/", { replace: true });
       })
       .catch((err) => console.log(err));
