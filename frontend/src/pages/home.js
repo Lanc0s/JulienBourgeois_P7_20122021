@@ -70,13 +70,6 @@ const Home = () => {
                             />
                           )}
                         </div>
-                        <Link
-                          className="lien"
-                          to="/comment"
-                          state={{ postId: post.post_id }}
-                        >
-                          Poster un commentaire
-                        </Link>
                       </div>
 
                       <div className="homepage__content__comment">
@@ -84,6 +77,13 @@ const Home = () => {
                           <h3>{post.pseudoCom} </h3>
                           <p>{post.commentContent} </p>
                         </div>
+                        <Link
+                          className="lien"
+                          to="/comment"
+                          state={{ postId: post.post_id }}
+                        >
+                          Poster un commentaire
+                        </Link>
                       </div>
                     </article>
                   );

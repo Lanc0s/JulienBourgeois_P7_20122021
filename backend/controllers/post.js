@@ -78,17 +78,14 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   let query;
-  if ((res.locals.isAdmin = 1)) {
+  if (res.locals.isAdmin === 1) {
     query = "DELETE FROM publication WHERE post_id=?";
-  } else if ((res.locals.isAdmin = 0)) {
-    query = "DELETE FROM publication WHERE post_id=9 AND user_id=2";
+  } else if (res.locals.isAdmin === 0) {
+    query = "DELETE FROM publication WHERE post_id=? AND user_id=?";
   }
   db.query(
     query,
     [parseInt(req.params.post_id), res.locals.userId],
-    console.log("isAdmin : ", res.locals.isAdmin),
-    console.log(query),
-    console.log(res.locals.userId),
     function (error, results) {
       if (error || !results.affectedRows) {
         console.log(error);

@@ -46,9 +46,13 @@ exports.signin = (req, res, next) => {
           userId: user.user_id,
           pseudo: user.prenom + " " + user.nom,
           isAdmin: user.isAdmin,
-          token: jwt.sign({ userId: user.user_id }, "RANDOM_TOKEN_SECRET", {
-            expiresIn: "24h",
-          }),
+          token: jwt.sign(
+            { userId: user.user_id, isAdmin: user.isAdmin },
+            "RANDOM_TOKEN_SECRET",
+            {
+              expiresIn: "24h",
+            }
+          ),
         });
       });
     }

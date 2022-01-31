@@ -10,6 +10,7 @@ const Signup = () => {
       axios
         .post("http://localhost:3000/api/auth/signin", data)
         .then((res) => {
+          axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
           localStorage.token = res.data.token;
           localStorage.userId = res.data.userId;
           localStorage.pseudo = res.data.pseudo;
