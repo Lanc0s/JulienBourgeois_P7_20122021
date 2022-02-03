@@ -8,7 +8,7 @@
 *******************************************************************
 ******************************************************************/
 $primaryColor: #ffd7d7;
-$secondaryColor: #fd2d01;
+$secondaryColor: #cf381a;
 
 html {
   background-color: lightgray;
@@ -162,9 +162,11 @@ button {
       flex-flow: column-reverse wrap;
       justify-content: center;
       align-items: center;
-      background-color: lightgray;
+      background-color: #084b4b;
+      border-top: white 1px solid;
       border-bottom-left-radius: 1em;
       border-bottom-right-radius: 1em;
+      color: white;
       &__wrap {
         width: 95%;
         display: flex;
