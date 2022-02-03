@@ -9,10 +9,6 @@ const Post = () => {
   let pseudo = localStorage.pseudo;
   const userId = localStorage.userId;
 
-  /*   const location = useLocation();
-  const { from } = location.state;
-  console.log(from); */
-
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("user_id", parseInt(data.user_id));

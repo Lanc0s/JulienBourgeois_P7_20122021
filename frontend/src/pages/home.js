@@ -1,15 +1,34 @@
 import { useEffect, useState } from "react";
-import { BsFillTrashFill } from "react-icons/bs";
+import { BsFillTrashFill, BsChatDots } from "react-icons/bs";
 import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 
 const Home = () => {
-  const handleDelete = (id) => {
+  //Possibilité d'ajouter an alert dialog à l'avenir pour confirmer la supp par ex
+
+  const handleDeletePost = (id) => {
     axios.delete("http://localhost:3000/api/post/" + id).then(() => {
       window.location.reload();
     });
   };
+  const handleDeleteComment = (id) => {
+    axios.delete("http://localhost:3000/api/comment/" + id).then(() => {
+      window.location.reload();
+    });
+  };
+
+  const handleModPost = (id) => {
+    axios.put("http://localhost:3000/api/post/" + id).then(() => {
+      window.location.reload();
+    });
+  };
+  const handleModComment = (id) => {
+    axios.put("http://localhost:3000/api/comment/" + id).then(() => {
+      window.location.reload();
+    });
+  };
+
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     axios("http://localhost:3000/api/post")
@@ -56,8 +75,13 @@ const Home = () => {
                       <div className="homepage__content__post">
                         <div className="homepage__content__post__header">
                           <h3>{post.pseudoPost}</h3>
-                          <div onClick={() => handleDelete(post.post_id)}>
-                            <BsFillTrashFill className="delete_icon" />
+                          <div className="homepage__content__post__header__icons">
+                            <div onClick={() => handleModPost(post.comment_id)}>
+                              <BsChatDots className="modify_icon" />
+                            </div>
+                            <div onClick={() => handleDeletePost(post.post_id)}>
+                              <BsFillTrashFill className="delete_icon" />
+                            </div>
                           </div>
                         </div>
                         <div className="homepage__content__post__content">
@@ -71,19 +95,39 @@ const Home = () => {
                           )}
                         </div>
                       </div>
-
                       <div className="homepage__content__comment">
-                        <div className="homepage__content__comment__content">
-                          <h3>{post.pseudoCom} </h3>
-                          <p>{post.commentContent} </p>
+                        <div className="homepage__content__comment__wrap">
+                          <div className="homepage__content__comment__header">
+                            <h3>{post.pseudoCom} </h3>
+
+                            <div className="homepage__content__post__header__icons">
+                              <div
+                                onClick={() =>
+                                  handleModComment(post.comment_id)
+                                }
+                              >
+                                <BsChatDots className="modify_icon" />
+                              </div>
+                              <div
+                                onClick={() =>
+                                  handleDeleteComment(post.comment_id)
+                                }
+                              >
+                                <BsFillTrashFill className="delete_icon" />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="homepage__content__comment__content">
+                            <p>{post.commentContent} </p>
+                          </div>
+                          <Link
+                            className="lien"
+                            to="/comment"
+                            state={{ postId: post.post_id }}
+                          >
+                            Poster un commentaire
+                          </Link>
                         </div>
-                        <Link
-                          className="lien"
-                          to="/comment"
-                          state={{ postId: post.post_id }}
-                        >
-                          Poster un commentaire
-                        </Link>
                       </div>
                     </article>
                   );

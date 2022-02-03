@@ -31,7 +31,7 @@ exports.signin = (req, res, next) => {
   const { nom, prenom, email, user_password, isAdmin } = req.body;
   console.log(req.body);
   db.query(
-    " SELECT * from `utilisateur` where email = ?",
+    " SELECT user_id, nom, prenom, email, user_password, isAdmin from `utilisateur` where email = ?",
     [req.body.email],
     function (error, results) {
       if (error) {

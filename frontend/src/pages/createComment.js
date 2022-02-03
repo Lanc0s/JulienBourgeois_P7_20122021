@@ -10,11 +10,12 @@ const Comment = () => {
   let pseudo = localStorage.pseudo;
 
   const onSubmit = (data) => {
+    console.log("Data: ", data);
     const formData = new FormData();
-    formData.append("user_id", parseInt(data.user_id));
+    formData.append("user_id", data.user_id);
     formData.append("post_id", data.post_id);
     formData.append("content", data.content);
-    formData.append("image", data.image[0]);
+
     axios.post("http://localhost:3000/api/comment/", formData).then(() => {
       console.log(data);
       navigate("/", { replace: true });
@@ -23,6 +24,7 @@ const Comment = () => {
 
   const location = useLocation();
   const { postId } = location.state;
+  console.log("userId :", userId);
   console.log("postid = ", postId);
   return (
     <div id="comment">
@@ -44,25 +46,13 @@ const Comment = () => {
             required
           />
         </div>
-        {/* 
-        <div id="comment__image">
-          <label htmlFor="imageUrl">
-            Ajouter une image type PNG, JPG, JPEG, GIF
-          </label>
-          <input
-            type="file"
-            className="file"
-            accept="image/png, image/jpg, image/jpeg, image/gif"
-            {...register("image", { required: false })}
-          />
-        </div> */}
         <div className="submit">
           <button>Valider</button>
         </div>
+        <button>
+          <Link to="/"> Annuler</Link>
+        </button>
       </form>
-      <button>
-        <Link to="/"> Annuler</Link>
-      </button>
     </div>
   );
 };
