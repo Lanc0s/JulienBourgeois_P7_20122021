@@ -1,6 +1,8 @@
 const db = require("../database/connect");
 const fs = require("fs");
 const express = require("express");
+const { post } = require("../routes/user");
+const connection = require("../database/connect");
 
 exports.createPost = (req, res, next) => {
   const { user_id, content } = req.body;
@@ -26,23 +28,23 @@ exports.createPost = (req, res, next) => {
   );
 };
 
-exports.getPosts = (req, res, next) => {
-  let test = {
-    sql:
-      "SELECT p.post_id, up.user_id,uc.user_id,p.content AS postContent,imageUrl," +
-      "up.pseudo as 'pseudoPost', comment_id, c.content AS commentContent, uc.pseudo as 'pseudoCom'" +
-      "FROM publication p JOIN utilisateur AS up ON p.user_id = up.user_id " +
-      "LEFT join commentaire as c ON p.post_id = c.post_id " +
-      "LEFT JOIN utilisateur AS uc ON uc.user_id=c.user_id ;",
-    nestTables: true,
-  };
-  db.query(test, function (error, results) {
-    if (error) {
-      console.log(error);
-      return res.status(400).json({ error });
+exports.getPosts = async (req, res, next) => {
+  db.query(
+    `select publication.post_id, u.pseudo, publication.content, publication.imageUrl, JSON_ARRAYAGG(JSON_OBJECT('comment_id', commentaire.comment_id, 'content', commentaire.content, 'user_id', commentaire.user_id, 'pseudo', utilisateur.pseudo)) as comments 
+    from publication 
+    left join commentaire on publication.post_id = commentaire.post_id 
+    left join utilisateur on commentaire.user_id = utilisateur.user_id 
+    left join utilisateur as u on publication.user_id = u.user_id 
+    group by publication.post_id`,
+    function (err, results) {
+      const reworked = results.map((post) => ({
+        ...post,
+        comments: JSON.parse(post.comments),
+      }));
+
+      res.status(200).json(reworked);
     }
-    return res.status(200).json(results);
-  });
+  );
 };
 
 exports.getOnePost = (req, res, next) => {

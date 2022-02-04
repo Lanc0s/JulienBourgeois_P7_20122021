@@ -73,66 +73,69 @@ const Home = () => {
                     <article className="homepage__content__wrap">
                       <div className="homepage__content__post">
                         <div className="homepage__content__post__header">
-                          <h3>{post.up.pseudoPost}</h3>
+                          <h3>{post.pseudo}</h3>
                           <div className="homepage__content__post__header__icons">
-                            <div
-                              onClick={() => handleModPost(post.c.comment_id)}
-                            >
+                            <div onClick={() => handleModPost(post.comment_id)}>
                               <BsChatDots className="modify_icon" />
                             </div>
-                            <div
-                              onClick={() => handleDeletePost(post.p.post_id)}
-                            >
+                            <div onClick={() => handleDeletePost(post.post_id)}>
                               <BsFillTrashFill className="delete_icon" />
                             </div>
                           </div>
                         </div>
                         <div className="homepage__content__post__content">
-                          <p>{post.p.postContent}</p>
-                          {post.p.imageUrl && (
+                          <p>{post.content}</p>
+                          {post.imageUrl && (
                             <img
-                              src={post.p.imageUrl}
+                              src={post.imageUrl}
                               alt="contentimage"
                               className="homepage__content__post__content__img"
                             />
                           )}
                         </div>
                       </div>
+                      {post.comments &&
+                        post.comments.length &&
+                        post.comments.map((comment) => {
+                          console.log(comment);
+                          return (
+                            <div className="homepage__content__comment">
+                              <div className="homepage__content__comment__wrap">
+                                <div className="homepage__content__comment__header">
+                                  <h3>{comment.pseudo} </h3>
 
-                      <div className="homepage__content__comment">
-                        <div className="homepage__content__comment__wrap">
-                          <div className="homepage__content__comment__header">
-                            <h3>{post.uc.pseudoCom} </h3>
+                                  <div className="homepage__content__post__header__icons">
+                                    <div
+                                      onClick={() =>
+                                        handleModComment(comment.comment_id)
+                                      }
+                                    >
+                                      <BsChatDots className="modify_icon" />
+                                    </div>
+                                    <div
+                                      onClick={() =>
+                                        handleDeleteComment(comment.comment_id)
+                                      }
+                                    >
+                                      <BsFillTrashFill className="delete_icon" />
+                                    </div>
+                                  </div>
+                                </div>
 
-                            <div className="homepage__content__post__header__icons">
-                              <div
-                                onClick={() =>
-                                  handleModComment(post.c.comment_id)
-                                }
-                              >
-                                <BsChatDots className="modify_icon" />
-                              </div>
-                              <div
-                                onClick={() =>
-                                  handleDeleteComment(post.c.comment_id)
-                                }
-                              >
-                                <BsFillTrashFill className="delete_icon" />
+                                <div className="homepage__content__comment__content">
+                                  <p>{comment.content} </p>
+                                </div>
+                                <Link
+                                  className="lien"
+                                  to="/comment"
+                                  state={{ postId: post.post_id }}
+                                >
+                                  Poster un commentaire
+                                </Link>
                               </div>
                             </div>
-                          </div>
-                          <div className="homepage__content__comment__content">
-                            <p>{post.c.commentContent} </p>
-                          </div>
-                          <Link
-                            className="lien"
-                            to="/comment"
-                            state={{ postId: post.p.post_id }}
-                          >
-                            Poster un commentaire
-                          </Link>
-                        </div>
-                      </div>
+                          );
+                        })}
                     </article>
                   );
                 })
