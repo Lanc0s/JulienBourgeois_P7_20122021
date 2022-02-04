@@ -51,13 +51,15 @@ const Post = () => {
               {...register("image", { required: false })}
             />
           </div>
-          <div className="submit">
-            <button>Valider</button>
+          <div className="navigation__button">
+            <div className="submit">
+              <button>Valider</button>
+            </div>
+            <Link to="/">
+              <button> Annuler</button>
+            </Link>
           </div>
         </form>
-        <button>
-          <Link to="/"> Annuler</Link>
-        </button>
       </div>
     </div>
   );

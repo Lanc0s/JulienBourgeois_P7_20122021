@@ -6,6 +6,7 @@ CREATE TABLE utilisateur (
 user_id INTEGER PRIMARY KEY NOT NULL auto_increment,
 nom VARCHAR(100),
 prenom VARCHAR(100),
+pseudo VARCHAR(100),
 email VARCHAR(255) NOT NULL UNIQUE,
 user_password VARCHAR(500) NOT NULL, 
 isAdmin TINYINT(0) NOT NULL 

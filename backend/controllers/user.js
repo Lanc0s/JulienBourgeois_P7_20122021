@@ -10,7 +10,7 @@ exports.signup = (req, res, next) => {
     .hash(user_password, 10)
     .then((hash) => {
       db.query(
-        "INSERT INTO `utilisateur` (`nom`,`prenom`,`email`, `user_password`, `isAdmin`) VALUES (?,?,?,?,0)",
+        "INSERT INTO `utilisateur` (`nom`,`prenom`,`pseudo`,`email`, `user_password`, `isAdmin`) VALUES (?,?,concat(`prenom`,' ',`nom`),?,?,0)",
         [nom, prenom, email, hash],
         function (error, results) {
           if (error) {
@@ -31,7 +31,7 @@ exports.signin = (req, res, next) => {
   const { nom, prenom, email, user_password, isAdmin } = req.body;
   console.log(req.body);
   db.query(
-    " SELECT user_id, nom, prenom, email, user_password, isAdmin from `utilisateur` where email = ?",
+    " SELECT user_id, pseudo, email, user_password, isAdmin from `utilisateur` where email = ?",
     [req.body.email],
     function (error, results) {
       if (error) {
@@ -44,7 +44,7 @@ exports.signin = (req, res, next) => {
         }
         return res.status(200).json({
           userId: user.user_id,
-          pseudo: user.prenom + " " + user.nom,
+          pseudo: user.pseudo,
           isAdmin: user.isAdmin,
           token: jwt.sign(
             { userId: user.user_id, isAdmin: user.isAdmin },

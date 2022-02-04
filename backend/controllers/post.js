@@ -27,20 +27,22 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.getPosts = (req, res, next) => {
-  db.query(
-    "SELECT p.post_id, up.user_id,uc.user_id,p.content AS postContent,imageUrl," +
-      "concat( up.Prenom, ' ',up.Nom) as 'pseudoPost', comment_id, c.content AS commentContent, concat( uc.Prenom, ' ',uc.Nom) as 'pseudoCom'" +
+  let test = {
+    sql:
+      "SELECT p.post_id, up.user_id,uc.user_id,p.content AS postContent,imageUrl," +
+      "up.pseudo as 'pseudoPost', comment_id, c.content AS commentContent, uc.pseudo as 'pseudoCom'" +
       "FROM publication p JOIN utilisateur AS up ON p.user_id = up.user_id " +
       "LEFT join commentaire as c ON p.post_id = c.post_id " +
       "LEFT JOIN utilisateur AS uc ON uc.user_id=c.user_id ;",
-    function (error, results) {
-      if (error) {
-        console.log(error);
-        return res.status(400).json({ error });
-      }
-      return res.status(200).json(results);
+    nestTables: true,
+  };
+  db.query(test, function (error, results) {
+    if (error) {
+      console.log(error);
+      return res.status(400).json({ error });
     }
-  );
+    return res.status(200).json(results);
+  });
 };
 
 exports.getOnePost = (req, res, next) => {

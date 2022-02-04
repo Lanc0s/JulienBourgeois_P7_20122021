@@ -27,7 +27,9 @@ function App() {
           <Route path="/comment" element={<Comment />} />
         </Routes>
       </BrowserRouter>
-      <button onClick={logout}>Logout</button>
+      <div id="logout">
+        <button onClick={logout}>Logout</button>
+      </div>
     </div>
   );
 }
