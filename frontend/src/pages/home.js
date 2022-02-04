@@ -98,47 +98,41 @@ const Home = () => {
                           )}
                         </div>
                       </div>
-                      {posts && posts.length
-                        ? posts.map((post) => {
-                            console.log("post: ", post);
-                            return (
-                              <div className="homepage__content__comment">
-                                <div className="homepage__content__comment__wrap">
-                                  <div className="homepage__content__comment__header">
-                                    <h3>{post.uc.pseudoCom} </h3>
 
-                                    <div className="homepage__content__post__header__icons">
-                                      <div
-                                        onClick={() =>
-                                          handleModComment(post.c.comment_id)
-                                        }
-                                      >
-                                        <BsChatDots className="modify_icon" />
-                                      </div>
-                                      <div
-                                        onClick={() =>
-                                          handleDeleteComment(post.c.comment_id)
-                                        }
-                                      >
-                                        <BsFillTrashFill className="delete_icon" />
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="homepage__content__comment__content">
-                                    <p>{post.c.commentContent} </p>
-                                  </div>
-                                  <Link
-                                    className="lien"
-                                    to="/comment"
-                                    state={{ postId: post.p.post_id }}
-                                  >
-                                    Poster un commentaire
-                                  </Link>
-                                </div>
+                      <div className="homepage__content__comment">
+                        <div className="homepage__content__comment__wrap">
+                          <div className="homepage__content__comment__header">
+                            <h3>{post.uc.pseudoCom} </h3>
+
+                            <div className="homepage__content__post__header__icons">
+                              <div
+                                onClick={() =>
+                                  handleModComment(post.c.comment_id)
+                                }
+                              >
+                                <BsChatDots className="modify_icon" />
                               </div>
-                            );
-                          })
-                        : "Soyez le premier à laisser un commentaire !"}
+                              <div
+                                onClick={() =>
+                                  handleDeleteComment(post.c.comment_id)
+                                }
+                              >
+                                <BsFillTrashFill className="delete_icon" />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="homepage__content__comment__content">
+                            <p>{post.c.commentContent} </p>
+                          </div>
+                          <Link
+                            className="lien"
+                            to="/comment"
+                            state={{ postId: post.p.post_id }}
+                          >
+                            Poster un commentaire
+                          </Link>
+                        </div>
+                      </div>
                     </article>
                   );
                 })
