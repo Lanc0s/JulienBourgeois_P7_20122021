@@ -5,12 +5,13 @@ import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Post from "./pages/createPost";
 import Comment from "./pages/createComment";
+import ModifyComment from "./pages/modifyComment";
+import ModifyPost from "./pages/modifyPost";
 import React from "react";
 
 import axios from "axios";
 
 function App() {
-  console.log(localStorage.token);
   axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
   const logout = () => {
     localStorage.clear();
@@ -25,6 +26,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/post" element={<Post />} />
           <Route path="/comment" element={<Comment />} />
+          <Route path="/modifyPost" element={<ModifyPost />} />
+          <Route path="/modifyComment" element={<ModifyComment />} />
         </Routes>
       </BrowserRouter>
       <div id="logout">

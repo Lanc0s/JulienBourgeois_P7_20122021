@@ -34,7 +34,7 @@ exports.getComments = (req, res, next) => {
 exports.getOneComment = (req, res, next) => {
   db.query(
     "SELECT * FROM `commentaire` WHERE comment_id=?",
-    [req.params.id],
+    [req.params.comment_id],
     function (error, results) {
       if (error) {
         console.log(error);
@@ -46,9 +46,10 @@ exports.getOneComment = (req, res, next) => {
 };
 
 exports.updateComment = (req, res, next) => {
+  const { comment_id, content } = req.body;
   db.query(
-    "UPDATE `commentaire` SET ? WHERE comment_id=?",
-    [req.body, req.params.id],
+    "UPDATE `commentaire` SET content=? WHERE comment_id=?",
+    [content, comment_id],
     function (error, results) {
       if (error) {
         console.log(error);

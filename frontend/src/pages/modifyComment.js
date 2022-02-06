@@ -2,31 +2,32 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-const Comment = () => {
+const ModifyComment = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const userId = localStorage.userId;
   let pseudo = localStorage.pseudo;
+  let comment_id = localStorage.comment_id;
 
   const onSubmit = (data) => {
-    console.log("Data: ", data);
-    //formData in case we implement images
+    console.log("data :", data);
     const formData = new FormData();
-    formData.append("user_id", data.user_id);
-    formData.append("post_id", data.post_id);
+    //formData in case we implement images
+    formData.append("comment_id", comment_id);
     formData.append("content", data.content);
-
-    axios.post("http://localhost:3000/api/comment/", formData).then(() => {
-      console.log(data);
-      navigate("/", { replace: true });
-    });
+    axios
+      .put("http://localhost:3000/api/comment/" + comment_id, formData)
+      .then(() => {
+        console.log("dataafter: ", data);
+        localStorage.removeItem("comment_id");
+        navigate("/", { replace: true });
+      });
   };
 
-  const location = useLocation();
-  const { postId } = location.state;
-  console.log("userId :", userId);
-  console.log("postid = ", postId);
+  //need getOneComment so needing an id to query on
+
   return (
     <div id="comment">
       <div id="pseudo">
@@ -35,8 +36,7 @@ const Comment = () => {
       </div>
       <form id="comment__form" onSubmit={handleSubmit(onSubmit)}>
         <div hidden id="comment__dataHidden">
-          <input value={userId} {...register("user_id")} />
-          <input value={postId} {...register("post_id")} />
+          <input value={comment_id} {...register("comment_id")} />
         </div>
         <div id="comment__input">
           <label htmlFor="content">Commentaire</label>
@@ -57,4 +57,5 @@ const Comment = () => {
     </div>
   );
 };
-export default Comment;
+
+export default ModifyComment;

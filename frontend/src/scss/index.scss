@@ -162,7 +162,7 @@ code {
         padding-left: 2em;
         padding-right: 2em;
         &__img {
-          width: 100%;
+          max-width: 100%;
           border: 2px #dfb4b4 solid;
         }
       }

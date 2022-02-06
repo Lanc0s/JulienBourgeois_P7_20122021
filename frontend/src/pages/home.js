@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { BsFillTrashFill, BsChatDots } from "react-icons/bs";
 import axios from "axios";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 
 const Home = () => {
   //Possibilité d'ajouter an alert dialog à l'avenir pour confirmer la supp par ex
+
+  const navigate = useNavigate();
 
   const handleDeletePost = (id) => {
     axios.delete("http://localhost:3000/api/post/" + id).then(() => {
@@ -19,13 +21,16 @@ const Home = () => {
   };
 
   const handleModPost = (id) => {
-    axios.put("http://localhost:3000/api/post/" + id).then(() => {
-      window.location.reload();
+    axios("http://localhost:3000/api/post/" + id).then(() => {
+      localStorage.post_id = id;
+      navigate("/modifyPost", { replace: true });
     });
   };
+
   const handleModComment = (id) => {
-    axios.put("http://localhost:3000/api/comment/" + id).then(() => {
-      window.location.reload();
+    axios("http://localhost:3000/api/comment/" + id).then((res) => {
+      localStorage.comment_id = id;
+      navigate("/modifyComment", { replace: true });
     });
   };
 
@@ -35,14 +40,6 @@ const Home = () => {
       .then((res) => {
         setPosts(res.data);
       })
-      /*
-        .then(
-          axios("http://localhost:3000/api/comment/" + postId)
-            .then((res) => {
-              setComments(res.data);
-            })
-            .catch((error) => console.log(error))
-        ) */
       .catch((error) => console.log(error));
   }, [setPosts]);
 
@@ -75,7 +72,7 @@ const Home = () => {
                         <div className="homepage__content__post__header">
                           <h3>{post.pseudo}</h3>
                           <div className="homepage__content__post__header__icons">
-                            <div onClick={() => handleModPost(post.comment_id)}>
+                            <div onClick={() => handleModPost(post.post_id)}>
                               <BsChatDots className="modify_icon" />
                             </div>
                             <div onClick={() => handleDeletePost(post.post_id)}>
