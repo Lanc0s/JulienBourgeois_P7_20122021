@@ -62,9 +62,19 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
-  const {} = req.body;
-  const query = "UPDATE `publication` SET ? WHERE post_id=?";
-  db.query(query, [req.body, req.params.post_id], function (error, results) {
+  const { post_id, content } = req.body;
+  let image;
+  if (!req.file) {
+    query = "UPDATE `publication` SET content=? WHERE post_id=?";
+    image = imageHidden;
+    console.log("prout");
+  } else if (req.file) {
+    query = "UPDATE `publication` SET content=?, imageUrl=? WHERE post_id=?";
+    image = `${req.protocol}://${req.get("host")}/postImages/${
+      req.file.filename
+    }`;
+  }
+  db.query(query, [content, image, post_id], function (error, results) {
     if (error) {
       console.log(error);
       return res.status(400).json({ error });

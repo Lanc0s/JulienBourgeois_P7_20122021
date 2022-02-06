@@ -10,6 +10,7 @@ const ModifyPost = () => {
   const userId = localStorage.userId;
   let pseudo = localStorage.pseudo;
   let post_id = localStorage.post_id;
+  let imageUrl = localStorage.imageUrl;
 
   const onSubmit = (data) => {
     console.log("data :", data);
@@ -17,8 +18,9 @@ const ModifyPost = () => {
     formData.append("image", data.image[0]);
     formData.append("post_id", post_id);
     formData.append("content", data.content);
+    formData.append("imageHidden", imageUrl);
     axios
-      .put("http://localhost:3000/api/comment/" + post_id, formData)
+      .put("http://localhost:3000/api/post/" + post_id, formData)
       .then(() => {
         console.log("dataAfter: ", data);
         localStorage.removeItem("post_id");
