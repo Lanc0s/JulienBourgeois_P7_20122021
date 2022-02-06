@@ -62,6 +62,7 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
+  const {} = req.body;
   const query = "UPDATE `publication` SET ? WHERE post_id=?";
   db.query(query, [req.body, req.params.post_id], function (error, results) {
     if (error) {
