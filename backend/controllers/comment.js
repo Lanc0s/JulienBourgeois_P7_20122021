@@ -65,7 +65,7 @@ exports.deleteComment = (req, res, next) => {
   if (res.locals.isAdmin === 1) {
     query = "DELETE FROM commentaire WHERE comment_id=?";
   } else if (res.locals.isAdmin === 0) {
-    query = "DELETE FROM publication WHERE comment_id=? AND user_id=?";
+    query = "DELETE FROM commentaire WHERE comment_id=? AND user_id=?";
   }
   db.query(
     query,
