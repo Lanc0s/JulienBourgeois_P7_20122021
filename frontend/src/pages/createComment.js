@@ -35,13 +35,14 @@ const Comment = () => {
       </div>
       <form id="comment__form" onSubmit={handleSubmit(onSubmit)}>
         <div hidden id="comment__dataHidden">
-          <input value={userId} {...register("user_id")} />
-          <input value={postId} {...register("post_id")} />
+          <input type="number" value={userId} {...register("user_id")} />
+          <input type="number" value={postId} {...register("post_id")} />
         </div>
         <div id="comment__input">
           <label htmlFor="content">Commentaire</label>
           <input
             type="text"
+            id="content"
             className="content"
             {...register("content")}
             required

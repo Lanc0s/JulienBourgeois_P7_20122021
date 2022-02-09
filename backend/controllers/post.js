@@ -37,10 +37,18 @@ exports.getPosts = async (req, res, next) => {
     left join utilisateur as u on publication.user_id = u.user_id 
     group by publication.post_id`,
     function (err, results) {
-      const reworked = results.map((post) => ({
-        ...post,
-        comments: JSON.parse(post.comments),
-      }));
+      console.log("pourquoi t'es null? ", results);
+
+      const reworked = results.map((post) => {
+        let comments = JSON.parse(post.comments);
+        if (!comments[0].comment_id) {
+          comments = [];
+        }
+        return {
+          ...post,
+          comments,
+        };
+      });
 
       res.status(200).json(reworked);
     }
@@ -62,12 +70,12 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
-  const { post_id, content } = req.body;
+  const { post_id, content, imageHidden } = req.body;
+  console.log("imageHidden", imageHidden);
   let image;
   if (!req.file) {
-    query = "UPDATE `publication` SET content=? WHERE post_id=?";
+    query = "UPDATE `publication` SET content=?, imageUrl=?  WHERE post_id=?";
     image = imageHidden;
-    console.log("prout");
   } else if (req.file) {
     query = "UPDATE `publication` SET content=?, imageUrl=? WHERE post_id=?";
     image = `${req.protocol}://${req.get("host")}/postImages/${

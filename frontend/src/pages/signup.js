@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const {
@@ -43,6 +43,7 @@ const Signup = () => {
             <label htmlFor="prenom">Prénom </label>
             <input
               id="prenom"
+              type="text"
               {...register("prenom", {
                 required: true,
                 pattern: /^([^0-9]*)$/,
@@ -86,11 +87,15 @@ const Signup = () => {
               {errors.user_password?.type === "required" &&
                 "Un mot de passe est nécessaire"}
             </p>
-          </div>
-          <div>
+          </div>{" "}
+          <div hidden id="dataHidden">
+            {/* 
+            <label hidden htmlFor="isAdmin">
+              Admin
+            </label> */}
             <input
               hidden
-              type="isAdmin"
+              type="number"
               id="isAdmin"
               defaultValue="0"
               {...register("isAdmin")}
@@ -99,9 +104,9 @@ const Signup = () => {
           </div>
           <button>Valider</button>
         </form>
-        <button onSubmit={handleSubmit(navigate("/login", { replace: true }))}>
-          Annuler
-        </button>
+        <Link to="/">
+          <button>Annuler</button>
+        </Link>
       </div>
     );
   }

@@ -39,15 +39,16 @@ const ModifyPost = () => {
       <div id="post">
         <form id="post__form" onSubmit={handleSubmit(onSubmit)}>
           <div hidden id="post__dataHidden">
-            <input value={post_id} {...register("post_id")} />
+            <input type="number" value={post_id} {...register("post_id")} />
           </div>
           <div id="post__input">
             <label htmlFor="content">Publication</label>
             <input
-              type="content"
+              type="text"
+              id="content"
               className="content"
               {...register("content")}
-              required
+              /* required */
             />
           </div>
           <div id="post__image">
@@ -56,6 +57,7 @@ const ModifyPost = () => {
             </label>
             <input
               type="file"
+              id="imageUrl"
               className="file"
               accept="image/png, image/jpg, image/jpeg, image/gif "
               {...register("image", { required: false })}

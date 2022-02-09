@@ -27,8 +27,6 @@ const ModifyComment = () => {
       });
   };
 
-  //need getOneComment so needing an id to query on
-
   const [comments, setComments] = useState([]);
   useEffect(() => {
     axios("http://localhost:3000/api/comment/" + comment_id)

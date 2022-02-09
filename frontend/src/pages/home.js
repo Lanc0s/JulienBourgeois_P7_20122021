@@ -24,7 +24,7 @@ const Home = () => {
     axios("http://localhost:3000/api/post/" + id).then((res) => {
       console.log("res  ", res);
       localStorage.post_id = id;
-      localStorage.imageUrl = res.data.imageUrl;
+      localStorage.imageUrl = res.data[0].imageUrl;
       navigate("/modifyPost", { replace: true });
     });
   };
@@ -68,6 +68,7 @@ const Home = () => {
             {posts && posts.length
               ? posts.map((post) => {
                   console.log("post: ", post);
+                  console.log("error de ses morts : ", post.comments);
                   return (
                     <article className="homepage__content__wrap">
                       <div className="homepage__content__post">
@@ -87,14 +88,13 @@ const Home = () => {
                           {post.imageUrl && (
                             <img
                               src={post.imageUrl}
-                              alt="contentimage"
+                              alt="Image liée à la publication"
                               className="homepage__content__post__content__img"
                             />
                           )}
                         </div>
                       </div>
-                      {post.comments &&
-                        post.comments.length &&
+                      {post.comments && post.comments.length ? (
                         post.comments.map((comment) => {
                           console.log(comment);
                           return (
@@ -134,7 +134,18 @@ const Home = () => {
                               </div>
                             </div>
                           );
-                        })}
+                        })
+                      ) : (
+                        <div>
+                          <Link
+                            className="lien"
+                            to="/comment"
+                            state={{ postId: post.post_id }}
+                          >
+                            Poster un commentaire
+                          </Link>
+                        </div>
+                      )}
                     </article>
                   );
                 })

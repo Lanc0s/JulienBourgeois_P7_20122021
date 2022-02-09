@@ -36,12 +36,13 @@ const ModifyComment = () => {
       </div>
       <form id="comment__form" onSubmit={handleSubmit(onSubmit)}>
         <div hidden id="comment__dataHidden">
-          <input value={comment_id} {...register("comment_id")} />
+          <input type="number" value={comment_id} {...register("comment_id")} />
         </div>
         <div id="comment__input">
           <label htmlFor="content">Commentaire</label>
           <input
             type="text"
+            id="content"
             className="content"
             {...register("content")}
             required
