@@ -58,7 +58,7 @@ const Post = () => {
               <button>Valider</button>
             </div>
             <Link to="/">
-              <button> Annuler</button>
+              <button>Annuler</button>
             </Link>
           </div>
         </form>

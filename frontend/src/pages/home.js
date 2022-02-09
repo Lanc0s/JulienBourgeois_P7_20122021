@@ -60,7 +60,11 @@ const Home = () => {
             <h1>Fil d'actualités</h1>
           </div>
           <div id="postButton">
-            <Link className="lien" to="/post">
+            <Link
+              aria-label="bouton publier une publication"
+              className="lien"
+              to="/post"
+            >
               Publier un post
             </Link>
           </div>
@@ -73,18 +77,28 @@ const Home = () => {
                     <article className="homepage__content__wrap">
                       <div className="homepage__content__post">
                         <div className="homepage__content__post__header">
-                          <h3>{post.pseudo}</h3>
+                          <h3 aria-label="Nom de créateur de la publication">
+                            {post.pseudo}
+                          </h3>
                           <div className="homepage__content__post__header__icons">
-                            <div onClick={() => handleModPost(post.post_id)}>
+                            <div
+                              aria-label="Bouton Modifier Publication"
+                              onClick={() => handleModPost(post.post_id)}
+                            >
                               <BsChatDots className="modify_icon" />
                             </div>
-                            <div onClick={() => handleDeletePost(post.post_id)}>
+                            <div
+                              aria-label="Bouton supprimer publication"
+                              onClick={() => handleDeletePost(post.post_id)}
+                            >
                               <BsFillTrashFill className="delete_icon" />
                             </div>
                           </div>
                         </div>
                         <div className="homepage__content__post__content">
-                          <p>{post.content}</p>
+                          <p aria-label="Contenu de la publication">
+                            {post.content}
+                          </p>
                           {post.imageUrl && (
                             <img
                               src={post.imageUrl}
@@ -101,10 +115,13 @@ const Home = () => {
                             <div className="homepage__content__comment">
                               <div className="homepage__content__comment__wrap">
                                 <div className="homepage__content__comment__header">
-                                  <h3>{comment.pseudo} </h3>
+                                  <h3 aria-label="Nom du créateur du commentaire">
+                                    {comment.pseudo}
+                                  </h3>
 
                                   <div className="homepage__content__post__header__icons">
                                     <div
+                                      aria-label="Bouton modifier commentaire"
                                       onClick={() =>
                                         handleModComment(comment.comment_id)
                                       }
@@ -112,6 +129,7 @@ const Home = () => {
                                       <BsChatDots className="modify_icon" />
                                     </div>
                                     <div
+                                      aria-label="Bouton supprimer commentaire"
                                       onClick={() =>
                                         handleDeleteComment(comment.comment_id)
                                       }
@@ -122,14 +140,17 @@ const Home = () => {
                                 </div>
 
                                 <div className="homepage__content__comment__content">
-                                  <p>{comment.content} </p>
+                                  <p aria-label="contenu du commentaire">
+                                    {comment.content}{" "}
+                                  </p>
                                 </div>
                                 <Link
+                                  aria-label="Bouton publier un commentaire"
                                   className="lien"
                                   to="/comment"
                                   state={{ postId: post.post_id }}
                                 >
-                                  Poster un commentaire
+                                  Publier un commentaire
                                 </Link>
                               </div>
                             </div>
@@ -138,11 +159,12 @@ const Home = () => {
                       ) : (
                         <div>
                           <Link
+                            aria-label="Bouton publier un commentaire"
                             className="lien"
                             to="/comment"
                             state={{ postId: post.post_id }}
                           >
-                            Poster un commentaire
+                            Soyez le premier à publier un commentaire
                           </Link>
                         </div>
                       )}

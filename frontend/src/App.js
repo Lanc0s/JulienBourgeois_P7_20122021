@@ -31,7 +31,9 @@ function App() {
         </Routes>
       </BrowserRouter>
       <div id="logout">
-        <button onClick={logout}>Logout</button>
+        <button aria-label="Déconnexion" onClick={logout}>
+          Déconnexion
+        </button>
       </div>
     </div>
   );
