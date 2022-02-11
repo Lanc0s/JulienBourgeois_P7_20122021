@@ -11,6 +11,7 @@ const ModifyPost = () => {
   let pseudo = localStorage.pseudo;
   let post_id = localStorage.post_id;
   let imageUrl = localStorage.imageUrl;
+  let content = localStorage.content;
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -45,6 +46,7 @@ const ModifyPost = () => {
               type="text"
               id="content"
               className="content"
+              defaultValue={content}
               {...register("content")}
               /* required */
             />

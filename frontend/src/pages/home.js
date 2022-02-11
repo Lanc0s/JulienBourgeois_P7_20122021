@@ -23,6 +23,7 @@ const Home = () => {
   const handleModPost = (id) => {
     axios("http://localhost:3000/api/post/" + id).then((res) => {
       localStorage.post_id = id;
+      localStorage.content = res.data[0].content;
       localStorage.imageUrl = res.data[0].imageUrl;
       navigate("/modifyPost", { replace: true });
     });
