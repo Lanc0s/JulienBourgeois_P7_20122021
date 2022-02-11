@@ -12,7 +12,6 @@ const ModifyComment = () => {
   let comment_id = localStorage.comment_id;
 
   const onSubmit = (data) => {
-    console.log("data :", data);
     const formData = new FormData();
     //formData in case we implement images
     formData.append("comment_id", comment_id);
@@ -20,7 +19,6 @@ const ModifyComment = () => {
     axios
       .put("http://localhost:3000/api/comment/" + comment_id, formData)
       .then(() => {
-        console.log("dataafter: ", data);
         localStorage.removeItem("comment_id");
         navigate("/", { replace: true });
       });

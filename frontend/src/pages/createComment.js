@@ -10,7 +10,6 @@ const Comment = () => {
   let pseudo = localStorage.pseudo;
 
   const onSubmit = (data) => {
-    console.log("Data: ", data);
     //formData in case we implement images
     const formData = new FormData();
     formData.append("user_id", data.user_id);
@@ -18,15 +17,12 @@ const Comment = () => {
     formData.append("content", data.content);
 
     axios.post("http://localhost:3000/api/comment/", formData).then(() => {
-      console.log(data);
       navigate("/", { replace: true });
     });
   };
 
   const location = useLocation();
   const { postId } = location.state;
-  console.log("userId :", userId);
-  console.log("postid = ", postId);
   return (
     <div id="comment">
       <div id="pseudo">

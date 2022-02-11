@@ -16,7 +16,6 @@ const Post = () => {
     formData.append("image", data.image[0]);
 
     axios.post("http://localhost:3000/api/post/", formData).then(() => {
-      console.log(data);
       navigate("/", { replace: true });
     });
   };

@@ -13,7 +13,6 @@ const Login = () => {
         localStorage.userId = res.data.userId;
         localStorage.pseudo = res.data.pseudo;
         localStorage.token = res.data.token;
-        console.log("localStorage :", localStorage);
         navigate("/", { replace: true });
       })
       .catch((err) => console.log(err));

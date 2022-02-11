@@ -13,7 +13,6 @@ const ModifyPost = () => {
   let imageUrl = localStorage.imageUrl;
 
   const onSubmit = (data) => {
-    console.log("data :", data);
     const formData = new FormData();
     formData.append("image", data.image[0]);
     formData.append("post_id", post_id);
@@ -22,7 +21,6 @@ const ModifyPost = () => {
     axios
       .put("http://localhost:3000/api/post/" + post_id, formData)
       .then(() => {
-        console.log("dataAfter: ", data);
         localStorage.removeItem("post_id");
         navigate("/", { replace: true });
       });

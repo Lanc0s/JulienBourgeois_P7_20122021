@@ -22,7 +22,6 @@ const Home = () => {
 
   const handleModPost = (id) => {
     axios("http://localhost:3000/api/post/" + id).then((res) => {
-      console.log("res  ", res);
       localStorage.post_id = id;
       localStorage.imageUrl = res.data[0].imageUrl;
       navigate("/modifyPost", { replace: true });
@@ -71,8 +70,6 @@ const Home = () => {
           <section className="homepage__content">
             {posts && posts.length
               ? posts.map((post) => {
-                  console.log("post: ", post);
-                  console.log("error de ses morts : ", post.comments);
                   return (
                     <article className="homepage__content__wrap">
                       <div className="homepage__content__post">
@@ -110,7 +107,6 @@ const Home = () => {
                       </div>
                       {post.comments && post.comments.length ? (
                         post.comments.map((comment) => {
-                          console.log(comment);
                           return (
                             <div className="homepage__content__comment">
                               <div className="homepage__content__comment__wrap">
