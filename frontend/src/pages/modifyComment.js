@@ -29,7 +29,9 @@ const ModifyComment = () => {
   return (
     <div id="comment">
       <div id="pseudo">
-        <Logo id="logo" />
+        <Link to="/">
+          <Logo id="logo"></Logo>
+        </Link>
         <h4>{pseudo}</h4>
       </div>
       <form id="comment__form" onSubmit={handleSubmit(onSubmit)}>

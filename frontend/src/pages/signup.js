@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 
 const Signup = () => {
   const {
@@ -29,6 +30,9 @@ const Signup = () => {
   } else {
     return (
       <div>
+        <Link to="/">
+          <Logo id="logo"></Logo>
+        </Link>
         <form id="signup__wrap" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label htmlFor="nom">Nom: </label>

@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Navigate, useNavigate, Link } from "react-router-dom";
+import { ReactComponent as Logo } from "../images/icon-left-font-monochrome-black.svg";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -22,6 +23,9 @@ const Login = () => {
   } else {
     return (
       <div>
+        <Link to="/">
+          <Logo id="logo"></Logo>
+        </Link>
         <div id="linkSignup">
           <Link to="/signup">S'enregistrer</Link>
         </div>
