@@ -2,34 +2,17 @@ const db = require("../database/connect");
 
 exports.createComment = (req, res, next) => {
   const { user_id, post_id, content } = req.body;
-  console.log("req.body : ", req.body);
   db.query(
     "INSERT INTO `commentaire` VALUES (null, ?,?,?)",
     [user_id, post_id, content],
     function (error, results) {
       if (error) {
-        console.log("merde :", error);
         return res.status(400).json({ error });
       }
       return res.status(201).json({ message: "Création commentaire réussie" });
     }
   );
 };
-/* 
-exports.getComments = (req, res, next) => {
-  const { post_id } = req.params;
-  db.query(
-    "SELECT user_id, post_id, content, imageUrl FROM `commentaire` WHERE post_id=3",
-    /* [post_id],
-    function (error, results) {
-      if (error) {
-        console.log(error);
-        return res.status(400).json({ error });
-      }
-      return res.status(200).json(results);
-    }
-  );
-}; */
 
 exports.getOneComment = (req, res, next) => {
   db.query(

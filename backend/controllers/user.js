@@ -29,7 +29,6 @@ exports.signup = (req, res, next) => {
 
 exports.signin = (req, res, next) => {
   const { nom, prenom, email, user_password, isAdmin } = req.body;
-  console.log(req.body);
   db.query(
     " SELECT user_id, pseudo, email, user_password, isAdmin from `utilisateur` where email = ?",
     [req.body.email],

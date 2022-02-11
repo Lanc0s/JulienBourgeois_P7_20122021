@@ -37,8 +37,6 @@ exports.getPosts = async (req, res, next) => {
     left join utilisateur as u on publication.user_id = u.user_id 
     group by publication.post_id`,
     function (err, results) {
-      console.log("pourquoi t'es null? ", results);
-
       const reworked = results.map((post) => {
         let comments = JSON.parse(post.comments);
         if (!comments[0].comment_id) {
@@ -71,7 +69,6 @@ exports.getOnePost = (req, res, next) => {
 
 exports.updatePost = (req, res, next) => {
   const { post_id, content, imageHidden } = req.body;
-  console.log("imageHidden", imageHidden);
   let image;
   if (!req.file) {
     query = "UPDATE `publication` SET content=?, imageUrl=?  WHERE post_id=?";

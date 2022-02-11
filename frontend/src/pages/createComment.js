@@ -44,12 +44,14 @@ const Comment = () => {
             required
           />
         </div>
-        <div className="submit">
-          <button>Valider</button>
+        <div className="navigation__button">
+          <div className="submit">
+            <button>Valider</button>
+          </div>
+          <Link to="/">
+            <button>Annuler</button>
+          </Link>
         </div>
-        <Link to="/">
-          <button>Annuler</button>
-        </Link>
       </form>
     </div>
   );

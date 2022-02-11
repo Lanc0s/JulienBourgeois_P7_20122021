@@ -84,9 +84,10 @@ code {
 }
 .navigation__button {
   display: flex;
+  justify-content: space-around;
   & button {
     margin: 1em;
-    width: 15em;
+    width: 8em;
   }
 }
 .file {
@@ -99,7 +100,7 @@ code {
   padding: 2em;
   & button {
     text-decoration: none;
-    width: 5em;
+    width: 8em;
   }
 }
 /******************************************************************
@@ -211,6 +212,31 @@ code {
 }
 
 #post {
+  &__form {
+    height: 25em;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+  }
+  &__input {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-around;
+    & input {
+      width: 70%;
+    }
+  }
+  &__image {
+    display: flex;
+    justify-content: space-around;
+    & input {
+      width: 40%;
+    }
+  }
+}
+
+#comment {
   &__form {
     height: 25em;
     display: flex;
