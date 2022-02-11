@@ -9,7 +9,8 @@ Using a MySQL workbench, copy paste the sql from backend/database/projet_07_tabl
 Open a terminal and procces to enter into backend folder ( cd backend)
   Then install node_modules (npm i)
   Finally start the server ("node server" or "nodemon server" depending on your preference)
-Open a terminal and procces to enter into frontend folder ( cd frontend)
+Open a terminal and procces to enter into frontend folder ( cd frontend) 
   Then install node_modules (npm i)
   Finally start the website (npm start)
  
+Have a lovely day!
