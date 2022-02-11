@@ -12,3 +12,4 @@ Open a terminal and procces to enter into backend folder ( cd backend)
 Open a terminal and procces to enter into frontend folder ( cd frontend)
   Then install node_modules (npm i)
   Finally start the website (npm start)
+ 
