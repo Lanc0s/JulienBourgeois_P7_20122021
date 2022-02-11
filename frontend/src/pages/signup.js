@@ -35,7 +35,7 @@ const Signup = () => {
         </Link>
         <form id="signup__wrap" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="nom">Nom: </label>
+            <label htmlFor="nom">Nom </label>
             <input
               id="nom"
               {...register("nom", { required: true, pattern: /^([^0-9]*)$/ })}
@@ -60,7 +60,7 @@ const Signup = () => {
             </p>
           </div>
           <div>
-            <label htmlFor="email">Email: </label>
+            <label htmlFor="email">Email </label>
             <input
               type="email"
               id="email"
@@ -78,7 +78,7 @@ const Signup = () => {
             {/* Si mail de société \b[\w\.-]+@groupomania+\.\w{2,4}\b */}
           </div>
           <div>
-            <label htmlFor="password">Mot de passe: </label>
+            <label htmlFor="password">Mot de passe </label>
             <input
               type="password"
               id="password"
