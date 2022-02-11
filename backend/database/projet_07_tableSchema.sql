@@ -8,7 +8,7 @@ nom VARCHAR(25),
 prenom VARCHAR(25),
 pseudo VARCHAR(50),
 email VARCHAR(50) NOT NULL UNIQUE,
-user_password VARCHAR(25) NOT NULL, 
+user_password VARCHAR(250) NOT NULL, 
 isAdmin TINYINT(0) NOT NULL 
 );
 
