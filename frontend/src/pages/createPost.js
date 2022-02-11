@@ -22,7 +22,7 @@ const Post = () => {
   return (
     <div className="pageWrap">
       <div id="pseudo">
-        <Link to="/">
+        <Link to="/" aria-label="home">
           <Logo id="logo"></Logo>
         </Link>
         <h4>{pseudo}</h4>

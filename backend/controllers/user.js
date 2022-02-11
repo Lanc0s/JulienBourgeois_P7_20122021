@@ -57,3 +57,14 @@ exports.signin = (req, res, next) => {
     }
   );
 };
+
+exports.deleteUser = (req, res, next) => {
+  const query = "DELETE FROM utilisateur WHERE user_id=?";
+  db.query(query, [res.locals.userId], function (error, results) {
+    if (error) {
+      console.log(error);
+      return res.status(400).json({ error });
+    }
+    return res.status(201).json({ message: "User deleted" });
+  });
+};

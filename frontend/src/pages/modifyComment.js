@@ -29,7 +29,7 @@ const ModifyComment = () => {
   return (
     <div id="comment">
       <div id="pseudo">
-        <Link to="/">
+        <Link to="/" aria-label="home">
           <Logo id="logo"></Logo>
         </Link>
         <h4>{pseudo}</h4>

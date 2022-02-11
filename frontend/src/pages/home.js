@@ -9,6 +9,17 @@ const Home = () => {
 
   const navigate = useNavigate();
 
+  const handleDeleteUser = () => {
+    let text = "Êtes vous sûr de vouloir supprimer votre compte ?";
+    if (window.confirm(text) === true) {
+      axios.delete("http://localhost:3000/api/auth/deleteUser").then(() => {
+        localStorage.clear();
+        window.location.reload();
+      });
+    } else {
+      window.location.reload();
+    }
+  };
   const handleDeletePost = (id) => {
     axios.delete("http://localhost:3000/api/post/" + id).then(() => {
       window.location.reload();
@@ -52,7 +63,7 @@ const Home = () => {
     return (
       <div className="wrapper">
         <div id="pseudo">
-          <Link to="/">
+          <Link to="/" aria-label="home">
             <Logo id="logo"></Logo>
           </Link>
           <h4>{pseudo}</h4>
@@ -159,11 +170,13 @@ const Home = () => {
                         <div>
                           <Link
                             aria-label="Bouton publier un commentaire"
-                            className="lien"
                             to="/comment"
+                            className="lien"
                             state={{ postId: post.post_id }}
                           >
-                            Soyez le premier à publier un commentaire
+                            <div className="lien">
+                              Soyez le premier à publier un commentaire
+                            </div>
                           </Link>
                         </div>
                       )}
@@ -172,6 +185,11 @@ const Home = () => {
                 })
               : "Il n'y a pas de posts, bizarre !"}
           </section>
+        </div>
+        <div className="delete__account__button">
+          <button onClick={() => handleDeleteUser()}>
+            Suppression de compte
+          </button>
         </div>
       </div>
     );

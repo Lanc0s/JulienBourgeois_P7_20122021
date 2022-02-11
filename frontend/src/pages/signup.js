@@ -30,7 +30,7 @@ const Signup = () => {
   } else {
     return (
       <div>
-        <Link to="/">
+        <Link to="/" aria-label="home">
           <Logo id="logo"></Logo>
         </Link>
         <form id="signup__wrap" onSubmit={handleSubmit(onSubmit)}>
@@ -106,11 +106,13 @@ const Signup = () => {
               required
             />
           </div>
-          <button>Valider</button>
+          <div className="navigation__button">
+            <button>Valider</button>
+            <Link to="/">
+              <button>Annuler</button>
+            </Link>
+          </div>
         </form>
-        <Link to="/">
-          <button>Annuler</button>
-        </Link>
       </div>
     );
   }

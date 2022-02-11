@@ -23,7 +23,7 @@ const Login = () => {
   } else {
     return (
       <div>
-        <Link to="/">
+        <Link to="/" aria-label="home">
           <Logo id="logo"></Logo>
         </Link>
         <div id="linkSignup">
