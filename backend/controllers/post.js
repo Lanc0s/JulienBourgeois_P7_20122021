@@ -71,21 +71,27 @@ exports.updatePost = (req, res, next) => {
   const { post_id, content, imageHidden } = req.body;
   let image;
   if (!req.file) {
-    query = "UPDATE `publication` SET content=?, imageUrl=?  WHERE post_id=?";
+    query =
+      "UPDATE `publication` SET content=?, imageUrl=?  WHERE post_id=? and user_id=?";
     image = imageHidden;
   } else if (req.file) {
-    query = "UPDATE `publication` SET content=?, imageUrl=? WHERE post_id=?";
+    query =
+      "UPDATE `publication` SET content=?, imageUrl=? WHERE post_id=? user_id=?";
     image = `${req.protocol}://${req.get("host")}/postImages/${
       req.file.filename
     }`;
   }
-  db.query(query, [content, image, post_id], function (error, results) {
-    if (error) {
-      console.log(error);
-      return res.status(400).json({ error });
+  db.query(
+    query,
+    [content, image, post_id, req.locals.userId],
+    function (error, results) {
+      if (error) {
+        console.log(error);
+        return res.status(400).json({ error });
+      }
+      return res.status(200).json(results);
     }
-    return res.status(200).json(results);
-  });
+  );
 
   /* 
   const { user_id, content, imageURL } = req.body;

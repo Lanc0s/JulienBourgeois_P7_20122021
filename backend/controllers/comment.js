@@ -31,8 +31,8 @@ exports.getOneComment = (req, res, next) => {
 exports.updateComment = (req, res, next) => {
   const { comment_id, content } = req.body;
   db.query(
-    "UPDATE `commentaire` SET content=? WHERE comment_id=?",
-    [content, comment_id],
+    "UPDATE `commentaire` SET content=? WHERE comment_id=? and user_id=?",
+    [content, comment_id, req.locals.userId],
     function (error, results) {
       if (error) {
         console.log(error);
